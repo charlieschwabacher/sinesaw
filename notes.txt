@@ -49,7 +49,7 @@ to run for each smaple.  For example, this is the time resolution at which
 we trigger new notes.
 
 - buffer rate
-This is the rate that the
+This is the rate that the scriptprocessornode requests audio buffers
 
 - frame rate
 The frame rate is the speed at which we trigger GUI updates for things like

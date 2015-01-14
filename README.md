@@ -11,10 +11,10 @@ files.  `mocha` to run tests.
 
 The idea behind sinesaw is to create an in browser DAW with an interface similar
 to Ableton Live, but allowing concurrent collabarative editing by multiple
-users.  In terms of latency and processing power, javascript will never complete
-with native DAWs, but running in browser makes collaboration and sharing so easy
-that I think there is an exciting place for it.  I hope the limited processing
-power will inspire creativity more than hold people back.
+users.  In terms of latency and processing power, it is difficult for javascript
+to complete with native DAWs, but running in browser makes collaboration and
+sharing so easy that I think there is an interesting place for it.  I hope the
+limited processing power will inspire creativity more than hold people back.
 
 Sinesaw is far from complete - so far it includes a piano roll editor, a working
 analog synthesizer, drum synthesizer, and sampler, and web midi input.
@@ -24,14 +24,14 @@ analog synthesizer, drum synthesizer, and sampler, and web midi input.
 
 Sinesaw plays audio through through a single scriptProcessor audio node running
 in a worker thread - the audio output is a pure function of the song state and
-the current time called for every sample of audio.
+the current time, this single function is called for every sample of audio.
 
 This approach to audio was inspired by the excellent
 [wavepot](http://wavepot.com) project.
 
 Sinesaw uses React.js for the user interface, and a custom
 [cursor](https://github.com/charlieschwabacher/cursor) library for immutable
-data modeling.. Song state is kept in a single object shared between the ui and
+data modeling.. Song state is kept in a single object passed from the ui to
 the audio processing code.
 
 The immutable data makes it easy to identify changes and keep state in sync

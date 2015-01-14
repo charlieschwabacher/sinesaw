@@ -1,12 +1,16 @@
 BUGS:
 
+- figure out what is calling a react component directly and giving a warning in
+  the console
+
 - after stopping audio and then restarting, sometimes get a chunk of white noise
   before audio plays normally - seems like its coming from drum synthesizer, but
   not 100% sure about that. (dividing by a very small number? something to do w/
   fm?)
 
-- figure out what is calling a react component directly and giving a warning in
-  the console
+- cursor can get stuck moving after audio is stopped
+
+- can scroll down in piano roll one key at a time, up only by two
 
 
 FEATURES:
@@ -14,13 +18,15 @@ FEATURES:
 - move sample data out of cursor structure into some global library so that
   samples can be shared w/o data being duplicated
 
-- sample selection ui
+- sample selection ui (use a modal, user can chose existing sample that is
+  already part of song, chose to load a preset one, or chose to upload a new
+  one)
 
-- better handling of deallocation of objs for notes / filters in instruments
-  when tracks are removed (maybe move playback state from Instrument class to
-  a requirable global obj and do it in Song)
+- better handling of allocation of objects of mutable state for tracks and
+  instruments when they are added or removed - song should do this as part of
+  update method instead of trakcs doing it for themselves in `tick`
 
-- WRITE UNIT TESTS for dsp stuff - try to figure out a good way to test
+- WRITE UNIT TESTS for dsp / midi stuff - try to figure out a good way to test
   interprocess communication
 
 - webrtc collaboration (and ui for it)
