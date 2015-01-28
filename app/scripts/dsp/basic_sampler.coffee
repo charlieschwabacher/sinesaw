@@ -8,35 +8,6 @@ envelope = require './components/envelope'
 
 module.exports = class BasicSampler extends Instrument
 
-  @defaults:
-    _type: 'BasicSampler'
-    level: 0.5
-    pan: 0.5
-    polyphony: 1
-    maxPolyphony: 6
-    rootKey: 60
-    sampleData: null
-    sampleName: ''
-    start: 0.3
-    loopActive: 'loop'
-    loop: 0.7
-    tune: 0.5
-    volumeEnv:
-      a: 0
-      d: 0.25
-      s: 1
-      r: 0.5
-    filterEnv:
-      a: 0
-      d: 0.25
-      s: 1
-      r: 0.5
-    filter:
-      type: 'none'
-      freq: 0.27
-      res: 0.05
-      env: 0.45
-
   @createState: (state, instrument) ->
     super state, instrument
 
@@ -45,10 +16,12 @@ module.exports = class BasicSampler extends Instrument
       HP: (highpassFilter() for i in [0...instrument.maxPolyphony])
       none: (((sample) -> sample) for i in [0...instrument.maxPolyphony])
 
-  @sample: (state, instrument, time, i) ->
+  @sample: (state, samples, instrument, time, i) ->
     return 0 if instrument.level is 0
     return 0 unless state[instrument._id]?
-    return 0 unless instrument.sampleData?
+
+    sampleData = samples[instrument.sampleId]
+    return 0 unless sampleData?
 
     r = Math.max 0.01, instrument.volumeEnv.r
 
@@ -60,10 +33,10 @@ module.exports = class BasicSampler extends Instrument
       # get pitch shifted interpolated sample and apply volume envelope
       transpose = note.key - instrument.rootKey + instrument.tune - 0.5
       samplesElapsed = i - note.i
-      offset = Math.floor instrument.start * instrument.sampleData.length
+      offset = Math.floor instrument.start * sampleData.length
       loopActive = instrument.loopActive is 'loop'
-      loopPoint = Math.floor instrument.loop * instrument.sampleData.length
-      sample = linearInterpolator instrument.sampleData, transpose, samplesElapsed, offset, loopActive, loopPoint
+      loopPoint = Math.floor instrument.loop * sampleData.length
+      sample = linearInterpolator sampleData, transpose, samplesElapsed, offset, loopActive, loopPoint
       sample = envelope(instrument.volumeEnv, note, time) * (sample or 0)
 
       # apply filter with envelope

@@ -29,6 +29,7 @@ Drum = React.createClass
         <SampleControl
           label={"Sample"}
           app={@props.app}
+          song={@props.song}
           sampler={drum}
         />
       </div>
@@ -85,7 +86,9 @@ module.exports = React.createClass
 
   onRemoveDrum: ->
     drums = @props.instrument.get('drums').slice 0
+    drum = drums[@state.activeDrum]
     drums.splice @state.activeDrum, 1
+    @props.song.disuseSample drum.sampleId
     @props.instrument.set 'drums', drums
     @setState activeDrum: Math.min @state.activeDrum, drums.length - 1
 
@@ -111,5 +114,6 @@ module.exports = React.createClass
       <Drum
         drum={instrument.cursor ['drums', @state.activeDrum]}
         app={@props.app}
+        song={@props.song}
       />
     </div>

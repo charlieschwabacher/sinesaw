@@ -10,22 +10,23 @@ module.exports = class DrumSampler extends Instrument
   @createState: (state, instrument) ->
     state[instrument._id] = notes: {}
 
-  @sample: (state, instrument, time, i) ->
+  @sample: (state, samples, instrument, time, i) ->
     return 0 if instrument.level is 0
     return 0 unless state[instrument._id]?
 
     # sum all active notes
     instrument.level * instrument.drums.reduce((memo, drum) =>
-      return memo unless drum.sampleData?
-
       note = state[instrument._id].notes[drum.key]
       return memo unless note?
 
-      samplesElapsed = i - note.i
-      offset = Math.floor drum.start * drum.sampleData.length
-      return memo if samplesElapsed + offset > drum.sampleData.length
+      sampleData = samples[drum.sampleId]
+      return memo unless sampleData?
 
-      sample = linearInterpolator drum.sampleData, drum.transpose, samplesElapsed, offset
+      samplesElapsed = i - note.i
+      offset = Math.floor drum.start * sampleData.length
+      return memo if samplesElapsed + offset > sampleData.length
+
+      sample = linearInterpolator sampleData, drum.transpose, samplesElapsed, offset
       memo + drum.level * envelope(drum.volumeEnv, note, time) * (sample or 0)
     , 0)
 

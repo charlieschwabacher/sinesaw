@@ -5,7 +5,7 @@
     "brfs": "^1.2.0",
     "browserify": "^5.9.1",
     "build-status": "^1.0.14",
-    "coffee-reactify": "^0.5.0",
+    "coffee-reactify": "^2.1.0",
     "coffee-script": "^1.8.0",
     "envify": "^3.2.0",
     "gulp": "^3.8.9",

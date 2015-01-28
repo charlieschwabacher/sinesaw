@@ -52,6 +52,7 @@ module.exports = React.createClass
         <SampleControl
           label="Sample"
           app={@props.app}
+          song={@props.song}
           sampler={instrument}
         />
       </div>

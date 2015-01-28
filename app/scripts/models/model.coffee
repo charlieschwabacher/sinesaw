@@ -16,3 +16,5 @@ module.exports = class Model
       else @defaults
 
     deepMerge defaults, data
+
+  @destroy: (song, data) ->

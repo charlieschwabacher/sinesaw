@@ -20,7 +20,7 @@ module.exports = class AnalogSynthesizer extends Instrument
       HP: (highpassFilter() for i in [0...instrument.maxPolyphony])
       none: (((sample) -> sample) for i in [0...instrument.maxPolyphony])
 
-  @sample: (state, instrument, time, i) ->
+  @sample: (state, samples, instrument, time, i) ->
     return 0 if instrument.level is 0
     return 0 unless state[instrument._id]?
 

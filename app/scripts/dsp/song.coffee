@@ -3,7 +3,7 @@ Track = require './track'
 module.exports = class Song
 
   # number of samples to process between ticks
-  clockRatio = 441
+  clockRatio = 110
 
   # rate at which level meters decay
   meterDecay = 0.05
@@ -21,6 +21,9 @@ module.exports = class Song
 
     # keep a reference to the current song document
     @song = null
+
+    # keep references to the currently used samples
+    @samples = {}
 
     # keep a list of unprocessed midi messages
     @midiMessages = []
@@ -48,7 +51,7 @@ module.exports = class Song
     @tick time, i if i % clockRatio is 0
 
     clip @song.level * @song.tracks.reduce((memo, track) =>
-      memo + Track.sample @state, track, time, i
+      memo + Track.sample @state, @samples, track, time, i
     , 0)
 
   # called for every clockRatio samples
@@ -66,6 +69,14 @@ module.exports = class Song
 
     @lastBeat = beat
 
+  # store sample data for a new sample
+  addSample: (id, sampleData) ->
+    @samples[id] = sampleData
+
+  # release data for a sample
+  removeSample: (id) ->
+    delete @samples[id]
+
   # called periodically to pass high frequency data to the ui.. this should
   # eventually be updated to base the amount of decay on the actual elpased time
   processFrame: ->
@@ -81,3 +92,4 @@ module.exports = class Song
       memo[track._id] = @state[track._id]?.meterLevel
       memo
     , {})
+

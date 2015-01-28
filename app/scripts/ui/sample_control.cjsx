@@ -23,18 +23,21 @@ module.exports = React.createClass
       reader.onload = (e) =>
         decoder.decodeAudioData e.target.result, (buffer) =>
           sampleData = buffer.getChannelData 0
-          @props.sampler.merge {sampleName: file.name, sampleData}
+          sampleId = @props.song.addSample sampleData
+          @props.sampler.merge {sampleName: file.name, sampleId}
       reader.readAsArrayBuffer file
 
   clear: ->
-    @props.sampler.merge sampleName: null, sampleData: null
+    @props.song.disuseSample @props.sampler.get 'sampleId'
+    @props.sampler.merge sampleName: null, sampleId: null
 
   recordSample: ->
     @props.app.launchModal <RecordControl
       onCancel={@props.app.dismissModal}
       onConfirm={
         (sampleData) =>
-          @props.sampler.merge {sampleName: 'recording.wav', sampleData}
+          sampleId = @props.song.addSample sampleData
+          @props.sampler.merge {sampleName: 'recording.wav', sampleId}
           @props.app.dismissModal()
       }
     />
@@ -54,7 +57,8 @@ module.exports = React.createClass
     sampleStart = sampler.get 'start'
     loopActive = sampler.get 'loopActive'
     loopValue = sampler.get 'loop'
-    sampleData = sampler.get 'sampleData'
+    sampleId = sampler.get 'sampleId'
+    sampleData = @props.song.samples[sampleId].sampleData if sampleId?
 
     markers = {}
 

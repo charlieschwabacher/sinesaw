@@ -59,6 +59,7 @@ module.exports = React.createClass
         instrumentControl =
           <ControlClass
             key={track.get '_id'}
+            song={@props.song}
             instrument={instrument}
             app={this}
           />
@@ -82,6 +83,7 @@ module.exports = React.createClass
             selectedTrack={selectedTrack}
             selectTrack={(v) => @props.data.set 'selectedTrack', parseInt v}
             meterLevels={@props.playbackState?.meterLevels}
+            song={@props.song}
           />
         </div>
         <div className="column main">
@@ -90,7 +92,7 @@ module.exports = React.createClass
               unless empty
                 <PianoRoll
                   data={@props.data}
-                  midiNotes={@props.song.midi.notes}
+                  midiNotes={@props.song.midiInput.notes}
                   sequence={sequence}
                   position={position}
                 />

@@ -10,7 +10,7 @@ module.exports = class BasicSampler extends Model
     polyphony: 1
     maxPolyphony: 6
     rootKey: 60
-    sampleData: null
+    sampleId: null
     sampleName: ''
     start: 0
     loopActive: 'off'
@@ -31,3 +31,6 @@ module.exports = class BasicSampler extends Model
       freq: 0.27
       res: 0.05
       env: 0.45
+
+  @destroy: (song, basicSampler) ->
+    song.disuseSample basicSampler.sampleId

@@ -15,10 +15,10 @@ module.exports = class Track
   @releaseState: (state, track) ->
     delete state[track._id]
 
-  @sample: (state, track, time, i) ->
+  @sample: (state, samples, track, time, i) ->
     # get instrument output
     Instrument = instrumentTypes[track.instrument._type]
-    sample = Instrument.sample state, track.instrument, time, i
+    sample = Instrument.sample state, samples, track.instrument, time, i
 
     # apply effects
     sample = track.effects.reduce((sample, effect) ->

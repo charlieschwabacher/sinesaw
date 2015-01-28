@@ -1,6 +1,6 @@
 ImmutableData = require './util/immutable_data'
 React = require 'react/addons'
-SongBridge = require './models/song_bridge'
+SongWorker = require './core/song_worker'
 Song = require './models/song'
 App = require './ui/app'
 debounce = require './util/debounce'
@@ -32,15 +32,15 @@ if process.env.NODE_ENV is 'development'
 # setup immutable data, dsp thread, and start app
 launch = (songData) ->
 
-  song = new SongBridge
+  window.song = new SongWorker
   window.data = null
   history = null
   playbackState = null
 
 
   # define a debounced function to save current song to localstorage
-  saveToLocalStorage = debounce 500, ->
-    localStorage.setItem 'song', JSON.stringify data.get()
+  # saveToLocalStorage = debounce 500, ->
+  #   localStorage.setItem 'song', JSON.stringify data.get()
 
 
   # called when playback state is received from audio processing thread
@@ -58,7 +58,7 @@ launch = (songData) ->
     history = h
 
     # save changes in localstorage
-    saveToLocalStorage()
+    # saveToLocalStorage()
 
   , history: true
 
@@ -76,9 +76,4 @@ launch = (songData) ->
 
 document.addEventListener 'DOMContentLoaded', ->
 
-  data = localStorage.getItem 'song'
-
-  if data?
-    launch JSON.parse data
-  else
-    launch require './extra/demo_song'
+  launch require './extra/demo_song'

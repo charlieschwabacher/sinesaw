@@ -12,23 +12,27 @@
 
 Song = require './dsp/song.coffee'
 
-song = new Song
+self.song = new Song
 
 self.logSample = require './dsp/components/log_sample'
 
 # respond to messages from parent thread
 self.onmessage = (e) ->
   switch e.data.type
-    when 'update'
-      song.update e.data.state
-    when 'midi'
-      song.midi e.data.message
     when 'buffer'
       song.buffer e.data.size, e.data.index, e.data.sampleRate, (buffer) ->
         postMessage
           type: 'buffer'
           buffer: buffer
         , [buffer]
+    when 'update'
+      song.update e.data.state
+    when 'midi'
+      song.midi e.data.message
+    when 'addSample'
+      song.addSample e.data.id, e.data.sampleData
+    when 'removeSample'
+      song.removeSample e.data.id
 
 # trigger processing on song at frame rate and send updates to the parent thread
 setInterval ->

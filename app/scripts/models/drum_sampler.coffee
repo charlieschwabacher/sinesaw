@@ -10,7 +10,7 @@ module.exports = class DrumSampler extends Model
     drums: [
       {
         name: 'Drum 1'
-        sampleData: null
+        sampleId: null
         sampleName: ''
         transpose: 0
         level: 1
@@ -40,3 +40,7 @@ module.exports = class DrumSampler extends Model
       d: 1
       s: 1
       r: 1
+
+  @destroy: (song, drumSampler) ->
+    drumSampler.drums.forEach (drum) ->
+      song.disuseSample drum.sampleId

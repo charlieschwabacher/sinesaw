@@ -97,11 +97,14 @@ module.exports = React.createClass
 
   removeTrack: ->
     tracks = @props.tracks.get().slice 0
-    tracks.splice @props.selectedTrack, 1
-    index = Math.max 0, Math.min @props.selectedTrack, tracks.length - 1
 
-    @props.selectTrack index
+    Track.destroy @props.song, tracks[@props.selectedTrack]
+
+    tracks.splice @props.selectedTrack, 1
     @props.tracks.set [], tracks
+
+    index = Math.max 0, Math.min @props.selectedTrack, tracks.length - 1
+    @props.selectTrack index
 
   render: ->
     tracks = @props.tracks.get()
