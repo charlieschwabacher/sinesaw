@@ -40,8 +40,10 @@ module.exports =
 
   # when the sequence prop changes, scale the viewport to fit the new sequence
   componentWillReceiveProps: (nextProps) ->
-    if nextProps.sequence.get('_id') != @props.sequence.get('_id')
+    if nextProps.sequence.get('_id') isnt @lastSequenceId
+      @lastSequenceId = nextProps.sequence.get '_id'
       @autoScaleViewport nextProps.sequence
+
 
   # scale the viewport to fit all notes in the sequence
   autoScaleViewport: (sequence) ->

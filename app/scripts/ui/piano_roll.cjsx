@@ -35,8 +35,8 @@ module.exports = React.createClass
     React.addons.PureRenderMixin
     SizeMeasurable
     Draggable
-    OverrideScrolling
     MouseInteraction
+    OverrideScrolling
     KeyboardInteraction
   ]
 

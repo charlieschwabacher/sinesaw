@@ -1,7 +1,5 @@
 BUGS:
 
-- bug removing track where piano roll width doesn't update
-
 - bug where noteend exactly at the end of a sequence is never sent
 
 - figure out missing transitionend event
