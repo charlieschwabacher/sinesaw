@@ -93,7 +93,7 @@ module.exports =
       xScroll = Math.min Math.max(0, @state.xScroll + quanta / @state.quantization), loopSize - @state.xScale
 
     if Math.abs(@scrollDeltaY) > yQuantum
-      quanta = (if @scrollDeltaX > 0 then Math.floor else Math.ceil)(@scrollDeltaY / yQuantum)
+      quanta = (if @scrollDeltaY > 0 then Math.floor else Math.ceil)(@scrollDeltaY / yQuantum)
       @scrollDeltaY -= quanta * yQuantum
       yScroll = Math.min Math.max(0, @state.yScroll + quanta), 128 - @state.yScale
 

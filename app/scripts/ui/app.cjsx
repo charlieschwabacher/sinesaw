@@ -80,8 +80,7 @@ module.exports = React.createClass
         <div className="column sidebar">
           <TrackSelection
             tracks={@props.data.cursor 'tracks'}
-            selectedTrack={selectedTrack}
-            selectTrack={(v) => @props.data.set 'selectedTrack', parseInt v}
+            selectedTrack={@props.data.cursor 'selectedTrack'}
             meterLevels={@props.playbackState?.meterLevels}
             song={@props.song}
           />

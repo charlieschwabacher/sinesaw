@@ -58,9 +58,17 @@ module.exports = class Track
     for id, note of sequence.notes
       start = note.start
       end = note.start + note.length
+
+      # catch notes on
       if start < beat and (start >= lastBeat or bar > lastBar)
         notesOn.push {key: note.key}
+
+      # catch notes off
       if end < beat and (end >= lastBeat or bar > lastBar)
+        notesOff.push {key: note.key}
+
+      # catch notes off for notes ending extactly at the end of a bar
+      else if bar > lastBar and end == sequence.loopSize
         notesOff.push {key: note.key}
 
     if midiMessages?

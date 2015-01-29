@@ -1,19 +1,11 @@
 BUGS:
 
-- bug where noteend exactly at the end of a sequence is never sent
-
-- figure out missing transitionend event
-
 - after stopping audio and then restarting, sometimes get a chunk of white noise
   before audio plays normally - seems like its coming from drum synthesizer, but
   not 100% sure about that. (dividing by a very small number? something to do w/
   fm?)
 
-- playback marker can get stuck moving after audio is stopped
-
-- can scroll down in piano roll one key at a time, up only by two keys (wtf?)
-
-- piano roll not resizing when track is removed
+- ? playback marker can get stuck moving after audio is stopped
 
 
 FEATURES:

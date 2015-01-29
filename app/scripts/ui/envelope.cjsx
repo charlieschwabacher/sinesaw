@@ -24,8 +24,8 @@ module.exports = React.createClass
     dragTarget: null
 
   getDefaultProps: ->
-    dotRadius: 5
-    margin: 4
+    dotRadius: 7
+    margin: 5
 
   buildLines: ->
     lines = []
