@@ -1,3 +1,13 @@
+FLOW OF DATA THROUGH WEB RTC
+
+- we use vector clocks to order changes
+- keep a list of changes w/ references to the state before they were applied
+- clear changes from the list when all clients have recieved them
+- when a message comes in that needs to occur before already appied local
+  changes, we rewind history to apply it at the correct point in time, and then
+  replay events to restore state
+
+
 FLOW OF AUDIO DATA
 
 - SongBridge plays audio in the main thread and owns the cannonical playback
@@ -32,6 +42,14 @@ FLOW OF MIDI MESSAGES
 
 - Instruments keep track of current notes in their own way, use to generate
   audio
+
+
+FLOW OF SAMPLE DATA
+
+- instruments call song.addSample to add a new sample, that sample is sent to
+  the dsp thread
+
+- when a new instrument uses
 
 
 TIME SCALES

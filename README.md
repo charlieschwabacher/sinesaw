@@ -10,14 +10,14 @@ files.  `mocha` to run tests.
 
 
 The idea behind sinesaw is to create an in browser DAW with an interface similar
-to Ableton Live, but allowing concurrent collabarative editing by multiple
-users.  In terms of latency and processing power, it is difficult for javascript
-to complete with native DAWs, but running in browser makes collaboration and
-sharing so easy that I think there is an interesting place for it.  I hope the
-limited processing power will inspire creativity more than hold people back.
+to Ableton Live.  In terms of latency and processing power, it is difficult for
+javascript to complete with native DAWs, but running in browser makes
+collaboration and sharing so easy that I think there is an interesting place for
+it.  I hope the limited processing power will inspire creativity more than hold
+people back.
 
-Sinesaw is far from complete - so far it includes a piano roll editor, a working
-analog synthesizer, drum synthesizer, and sampler, and web midi input.
+Sinesaw is far from complete - so far it includes a piano roll sequencer, analog
+synthesizer, drum synthesizer, sampler, and web midi input.
 
 
 ### architecture
@@ -29,16 +29,9 @@ the current time, this single function is called for every sample of audio.
 This approach to audio was inspired by the excellent
 [wavepot](http://wavepot.com) project.
 
-Sinesaw uses React.js for the user interface, and a custom
-[cursor](https://github.com/charlieschwabacher/cursor) library for immutable
-data modeling.. Song state is kept in a single object passed from the ui to
-the audio processing code.
-
-The immutable data makes it easy to identify changes and keep state in sync
-between multiple threads doing audio processing, multiple concurrent clients,
-and a persistent document on the server.
-
-For a more complete explanation of immutable data, check the readme for cursor.
+Sinesaw uses React.js for the user interface, and a custom cursor library for
+immutable data modeling.. Song state is kept in a single object passed from the
+ui to the audio processing code.
 
 
 ### approaching the code

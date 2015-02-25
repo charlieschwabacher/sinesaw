@@ -11,7 +11,6 @@ AnalogSynthesizerControl = require './analog_synthesizer_control'
 DrumSynthesizerControl = require './drum_synthesizer_control'
 DrumSamplerControl = require './drum_sampler_control'
 LoopSamplerControl = require './loop_sampler_control'
-Modal = require './modal'
 KeyboardInteraction = require './mixins/keyboard_interaction'
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
@@ -55,18 +54,6 @@ module.exports = React.createClass
         when 'LoopSampler' then LoopSamplerControl
         else null
 
-      if ControlClass?
-        instrumentControl =
-          <ControlClass
-            key={track.get '_id'}
-            song={@props.song}
-            instrument={instrument}
-            app={this}
-          />
-
-    if @state.modalContent?
-      modal = <Modal key='m'>{@state.modalContent}</Modal>
-
     <div className="app">
       <div className="row playback">
         <PlaybackControl
@@ -74,6 +61,7 @@ module.exports = React.createClass
           song={@props.song}
           playing={@props.song.playing}
           buffer={@props.song.buffer}
+          app={this}
         />
       </div>
       <div className="row main">
@@ -98,11 +86,19 @@ module.exports = React.createClass
             }
           </div>
           <div className="row instrument">
-            {instrumentControl}
+            {
+              if ControlClass?
+                <ControlClass
+                  key={track.get '_id'}
+                  song={@props.song}
+                  instrument={instrument}
+                  app={this}
+                />
+            }
           </div>
         </div>
       </div>
       <ReactCSSTransitionGroup transitionName="modal">
-        {modal}
+        {@state.modalContent}
       </ReactCSSTransitionGroup>
     </div>

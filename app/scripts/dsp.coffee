@@ -11,6 +11,7 @@
 # filled ArrayBuffers in response to 'buffer' requests.
 
 Song = require './dsp/song.coffee'
+encodeWav = require './dsp/components/encode_wav'
 
 self.song = new Song
 
@@ -20,11 +21,18 @@ self.logSample = require './dsp/components/log_sample'
 self.onmessage = (e) ->
   switch e.data.type
     when 'buffer'
-      song.buffer e.data.size, e.data.index, e.data.sampleRate, (buffer) ->
-        postMessage
-          type: 'buffer'
-          buffer: buffer
-        , [buffer]
+      buffer = song.buffer e.data.size, e.data.index, e.data.sampleRate
+      postMessage
+        type: 'buffer'
+        buffer: buffer
+      , [buffer]
+    when 'bounce'
+      buffer = song.buffer e.data.size, e.data.index, e.data.sampleRate
+      wav = encodeWav buffer, 1, e.data.sampleRate
+      postMessage
+        type: 'bounce'
+        wav: wav
+      , [wav]
     when 'update'
       song.update e.data.state
     when 'midi'
@@ -33,6 +41,8 @@ self.onmessage = (e) ->
       song.addSample e.data.id, e.data.sampleData
     when 'removeSample'
       song.removeSample e.data.id
+    when 'clearSamples'
+      song.clearSamples()
 
 # trigger processing on song at frame rate and send updates to the parent thread
 setInterval ->

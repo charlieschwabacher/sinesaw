@@ -20,6 +20,9 @@ module.exports = React.createClass
   getInitialState: ->
     defaultState
 
+  componentWillUnmount: ->
+    @state.recorder?.destroy()
+
   onClick: ->
     if @state.active
       @stop()
@@ -38,12 +41,16 @@ module.exports = React.createClass
 
   croppedSampleData: ->
     length = @state.sampleData.length
-    @state.sampleData.subarray Math.floor(@state.cropStart * length), Math.floor(@state.cropEnd * length)
+    beginByte = 4 * Math.floor @state.cropStart * length
+    endByte = 4 * Math.floor @state.cropEnd * length
+
+    new Float32Array @state.sampleData.buffer.slice beginByte, endByte
 
   record: ->
     return if @state.active
 
     @clear()
+    @state.recorder?.destroy()
 
     navigator.webkitGetUserMedia
       audio: true
@@ -63,6 +70,7 @@ module.exports = React.createClass
       @state.player.stop()
 
     @state.recorder.stop().getSampleData (sampleData) =>
+      @state.recorder.destroy()
       @setState
         recorder: null
         sampleData: sampleData
@@ -83,7 +91,9 @@ module.exports = React.createClass
     audioBuffer = context.createBuffer 1, data.length, context.sampleRate
     audioBuffer.getChannelData(0).set data
     player.buffer = audioBuffer
-    player.onended = => @setState playing: false
+    player.onended = =>
+      player.disconnect context.destination
+      @setState player: null, playing: false
     player.start()
 
     @setState {player, playing: true}
@@ -105,7 +115,7 @@ module.exports = React.createClass
     ]
 
     rightButtons = [
-      <div className="icon icon-cross" key="c" onClick={@props.onCancel}/>
+      <div className="icon icon-cross" key="c" onClick={@props.dismiss}/>
     ]
 
     if @state.sampleData?
@@ -151,7 +161,7 @@ module.exports = React.createClass
           {instruction}
         </div>
       </div>
-      <div className="row controls">
+      <div className="row actions">
         <div className="left">
           {leftButtons}
         </div>

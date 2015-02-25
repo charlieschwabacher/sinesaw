@@ -1,7 +1,8 @@
-ImmutableData = require './util/immutable_data'
+Cursor = require './util/cursor'
 React = require 'react/addons'
 SongWorker = require './core/song_worker'
 Song = require './models/song'
+WebRTC = require './util/web_rtc'
 App = require './ui/app'
 debounce = require './util/debounce'
 
@@ -30,17 +31,24 @@ if process.env.NODE_ENV is 'development'
 
 
 # setup immutable data, dsp thread, and start app
-launch = (songData) ->
-
-  window.song = new SongWorker
-  window.data = null
+document.addEventListener 'DOMContentLoaded', ->
+  song = new SongWorker
+  rtc = new WebRTC
+  data = null
   history = null
   playbackState = null
 
+  savedJson = localStorage.getItem 'song'
+  if savedJson?
+    {state, samples} = JSON.parse savedJson
+    song.loadSamples samples
+  else
+    state = Song.build()
+
 
   # define a debounced function to save current song to localstorage
-  # saveToLocalStorage = debounce 500, ->
-  #   localStorage.setItem 'song', JSON.stringify data.get()
+  saveToLocalStorage = debounce 2000, ->
+    localStorage.setItem 'song', song.toJSON()
 
 
   # called when playback state is received from audio processing thread
@@ -48,32 +56,28 @@ launch = (songData) ->
 
 
   # called every time song data changes
-  ImmutableData.create songData, (d, h) ->
+  Cursor.create state, (d, h, c) ->
+
+    # keep references to data cursor and history objects
+    data = d
+    history = h
 
     # pass updated data to dsp thread
     song.update d
 
-    # keep references to data cursor and history objects
-    window.data = d
-    history = h
+    # pass current list of changes to WebRTC adapter
+    rtc.update c
 
     # save changes in localstorage
-    # saveToLocalStorage()
+    saveToLocalStorage()
 
   , history: true
 
 
   # render the app on every animation frame
-  frame = ->
+  do frame = ->
     React.render(
       React.createElement(App, {song, data, playbackState, history}),
       document.body
     )
     requestAnimationFrame frame
-
-  frame()
-
-
-document.addEventListener 'DOMContentLoaded', ->
-
-  launch require './extra/demo_song'

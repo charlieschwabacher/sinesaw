@@ -1,5 +1,6 @@
 React = require 'react/addons'
 Waveform = require './waveform'
+ControlModal = require './modals/control_modal'
 RecordControl = require './record_control'
 decoder = require '../dsp/components/global_context'
 
@@ -32,15 +33,17 @@ module.exports = React.createClass
     @props.sampler.merge sampleName: null, sampleId: null
 
   recordSample: ->
-    @props.app.launchModal <RecordControl
-      onCancel={@props.app.dismissModal}
-      onConfirm={
-        (sampleData) =>
-          sampleId = @props.song.addSample sampleData
-          @props.sampler.merge {sampleName: 'recording.wav', sampleId}
-          @props.app.dismissModal()
-      }
-    />
+    @props.app.launchModal <ControlModal key='m'>
+      <RecordControl
+        dismiss={@props.app.dismissModal}
+        onConfirm={
+          (sampleData) =>
+            sampleId = @props.song.addSample sampleData
+            @props.sampler.merge {sampleName: 'recording.wav', sampleId}
+            @props.app.dismissModal()
+        }
+      />
+    </ControlModal>
 
   setStart: (value) ->
     @props.sampler.merge
@@ -73,7 +76,12 @@ module.exports = React.createClass
         onChange: @setLoop
 
     <div className="ui sample-control">
-      <input type="file" ref="input" onChange={@onFileSelect}/>
+      <input
+        type="file"
+        ref="input"
+        onChange={@onFileSelect}
+        style={display: 'none'}
+      />
       <div
         className="display"
         ref="container"

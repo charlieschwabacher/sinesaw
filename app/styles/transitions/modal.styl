@@ -1,36 +1,46 @@
 @require '../variables'
 
 .modal-enter
+  // we need this dummy transition to cause event to fire correctly
+  background-color rgba(0,0,0,0)
+  transition background-color 0.3s
+
   .modal-backdrop
     opacity 0
-    -webkit-transition opacity 0.3s
+    transition opacity 0.3s
 
   .modal-body
     opacity 0
-    -webkit-transition -webkit-transform 0.3s, opacity 0.3s
-    -webkit-transform scale(1.5)
+    transition transform 0.3s, opacity 0.3s
+    transform scale(1.5)
 
 .modal-enter.modal-enter-active
+  background-color rgba(1,0,0,0)
+
   .modal-backdrop
     opacity 0.65
 
   .modal-body
     opacity 1
-    -webkit-transform scale(1)
+    transform scale(1)
 
 .modal-leave
+  background-color rgba(0,0,0,0)
+  transition background-color 0.3s
 
   .modal-backdrop
-    -webkit-transition opacity 0.3s
+    transition opacity 0.3s
 
   .modal-body
-    -webkit-transition opacity 0.3s, -webkit-transform 0.3s
-    -webkit-transform scale(1)
+    transition opacity 0.3s, transform 0.3s
+    transform scale(1)
 
 .modal-leave-active
+  background-color rgba(1,0,0,0)
+
   .modal-backdrop
     opacity 0
 
   .modal-body
     opacity 0
-    -webkit-transform scale(1.2)
+    transform scale(1.2)

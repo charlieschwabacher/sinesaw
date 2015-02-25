@@ -8,6 +8,8 @@ module.exports =
     @keyBindings = [
       Keyboard.on 'backspace', @onBackspaceKey
       Keyboard.on 'left, right, up, down', @onArrowKey
+      Keyboard.on 'command + a', @selectAll
+      Keyboard.on 'escape', @clearSelection
     ]
 
   componentWillUnmount: ->
@@ -47,3 +49,9 @@ module.exports =
         changes[id] = key: note.key - distance
 
     @updateNotes changes
+
+  selectAll: ->
+    @setState selectedNotes: Object.keys @props.sequence.get 'notes'
+
+  clearSelection: ->
+    @setState selectedNotes: []

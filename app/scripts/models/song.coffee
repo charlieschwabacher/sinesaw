@@ -8,6 +8,7 @@ module.exports = class Song extends Model
     name: 'New Song'
     bpm: 120
     level: 1
+    selectedTrack: 0
     tracks: [
       do ->
         t = Track.build()

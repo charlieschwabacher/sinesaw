@@ -5,13 +5,8 @@ BUGS:
   not 100% sure about that. (dividing by a very small number? something to do w/
   fm?)
 
-- ? playback marker can get stuck moving after audio is stopped
-
 
 FEATURES:
-
-- move sample data out of cursor structure into some global library so that
-  samples can be shared w/o data being duplicated
 
 - sample selection ui with preset samples (use a modal, user can chose existing
   sample that is already part of song, chose to load a preset one, or chose to
@@ -22,33 +17,18 @@ FEATURES:
   of update method instead of tracks doing it for themselves in `tick`.. it can
   compare old against new tracks to see what has changed
 
-- WRITE UNIT TESTS for dsp / midi stuff - try to figure out a good way to test
-  interprocess communication
-
 - better cleanup in cursor cache
 
 - webrtc collaboration (and ui for it)
 
+- add fm synth
+
 - add velocity to notes, piano roll
 
-
-- ability to save
-  - ui to sign up, manage tracks, manage account
-  - backend (cors so site can be hosted on s3)
-    - postgres on amazon rds
-    - /account POST PUT
-    - /session POST DELETE
-    - /songs GET POST
-    - /songs/:id GET PUT DELETE
-    - /samples POST DELETE
-  - sample storage limit
-    - identify files by digest
-    - conect files to users w/ join model
+- rethink ui: add live style clip view? add logic style arrange view?
 
 - piano roll
   - when a note is placed on top of another note they should merge
-  - fix note positions when mouse is dragged past edge of piano roll and piano
-    roll autoscrolls
   - show loop size like ableton, make view size independtent of loop size, make
     dragging notes expand view size
   - try to reproduce / fix bug where option key is stuck on
@@ -60,6 +40,9 @@ FEATURES:
 - add swing to grid in piano roll
 
 - add 'off' to quantization options
+
+- WRITE UNIT TESTS for dsp / midi stuff - try to figure out a good way to test
+  interprocess communication
 
 - add instrument keyMap() function to drum sampler and loop sampler, pass to
   piano roll to display rows only for mapped drums (piano roll has toggle button
@@ -94,6 +77,17 @@ FEATURES:
   - distortion
     - http://component.fm/#components/web-audio-components/overdrive
 
-- add fm synth
 
-- rethink ui: add live style clip view? add logic style arrange view?
+- Ryan's Comments
+  - play button next to sample
+  - arrow or improved design on sample start
+  - magnifying glass on hover over waveform to show drag to zoom
+  - move root note and start controls to under sample
+  - put LFO controls under filter
+  - waveform should be mirrored
+  - anlog synth left to right order oscillator, filter, envelope
+  - able to share a link w/ song state instead of download
+  - when you try to record or upload samples
+    - default samples
+      - two kits: edm, hip hop
+    -

@@ -15,10 +15,97 @@
   position absolute
   top 50%
   left 50%
-  width 400px
-  height 200px
-  margin-left -200px
-  margin-top -100px
   background bg-color
   display flex
   flex-flow column nowrap
+
+  .overlay
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 2
+    background-color rgba(0,0,0,0.3)
+
+    .loading-indicator
+      position absolute
+      top 50%
+      left 50%
+      margin -3px -3px
+
+  .icon
+    font-size 20px
+    line-height 20px
+    padding (margin / 2) margin
+    display inline-block
+
+    &:hover
+      background ctrl-bg-color
+
+    &.active
+      color c3
+
+
+.control-modal
+
+  .row.actions
+    flex-basis (20px + margin)
+    flex-grow 0
+    flex-shrink 0
+
+    .left,
+    .right
+      flex-grow 1
+
+    .left
+      text-align left
+
+    .right
+      text-align right
+
+
+.dialog-modal
+  font med-font
+
+  .row.header
+    flex-basis (20px + margin)
+    flex-grow 0
+    flex-shrink 0
+
+    .title
+      flex-grow 1
+      text-align center
+      line-height (20px + margin)
+      padding 0 margin
+
+    .right
+      position absolute
+      display block
+      top 0
+      right 0
+
+  .column.content
+    flex-grow 1
+    background ctrl-bg-color
+    padding 2 * margin
+    justify-content space-between
+
+  p
+    margin-bottom margin
+
+  .buttons
+    position relative
+    margin-top margin
+
+  button
+    margin-top margin
+    display block
+    width 100%
+
+    &:hover
+      background ctrl-color
+
+    &:disabled
+      background bg-color
+

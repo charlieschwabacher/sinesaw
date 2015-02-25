@@ -1,0 +1,40 @@
+@require "../variables"
+
+loading-indicator-size = 6px
+loading-indicator-spacing = 3px
+loading-indicator-margin = 2px
+
+.loading-indicator,
+.loading-indicator:before,
+.loading-indicator:after
+  width loading-indicator-size
+  height loading-indicator-size
+  background-color c1
+  border-radius (loading-indicator-size / 2) !important
+
+.loading-indicator
+  position relative
+  display inline-block
+  margin 0 (loading-indicator-size + loading-indicator-spacing + loading-indicator-margin)
+  vertical-align middle
+  -webkit-animation loading-indicator 0.5s 0.25s infinite alternate
+
+
+  &:after,
+  &:before
+    content ''
+    position absolute
+
+  &:after
+    left (loading-indicator-size + loading-indicator-spacing)
+    -webkit-animation loading-indicator 0.5s 0.5s infinite alternate
+
+  &:before
+    left -(loading-indicator-size + loading-indicator-spacing)
+    -webkit-animation loading-indicator 0.5s 0s infinite alternate
+
+@-webkit-keyframes loading-indicator
+  0%
+    background c1
+  100%
+    background c3

@@ -35,7 +35,7 @@ module.exports = class Song
     @midiMessages.push message
 
   # fill a buffer function
-  buffer: (size, index, sampleRate, cb) ->
+  buffer: (size, index, sampleRate) ->
     arr = new Float32Array size
 
     if @song?
@@ -44,7 +44,7 @@ module.exports = class Song
         t = ii / sampleRate
         arr[i] = @sample t, ii
 
-    cb arr.buffer
+    arr.buffer
 
   # called for every sample of audio
   sample: (time, i) =>
@@ -77,6 +77,10 @@ module.exports = class Song
   removeSample: (id) ->
     delete @samples[id]
 
+  # release data for all samples
+  clearSamples: ->
+    @samples = {}
+
   # called periodically to pass high frequency data to the ui.. this should
   # eventually be updated to base the amount of decay on the actual elpased time
   processFrame: ->
@@ -92,4 +96,3 @@ module.exports = class Song
       memo[track._id] = @state[track._id]?.meterLevel
       memo
     , {})
-

@@ -17,10 +17,10 @@ count = 6
     height size
     border-radius (size / 2)
     background-color med-line-color
-    -webkit-transition background-color 0.3s
+    transition background-color 0.3s
 
     &.on
-      -webkit-transition 0
+      transition 0
 
       for i in (1..(count - 1))
         &:nth-child({i})
