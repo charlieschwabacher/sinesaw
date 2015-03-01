@@ -9,3 +9,5 @@ module.exports = class WebRTC
     window.webrtc = this
 
   update: ->
+
+  connect: ->

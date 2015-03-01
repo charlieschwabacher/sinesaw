@@ -13,21 +13,8 @@ if process.env.NODE_ENV is 'development'
   # setup gulp build status / autoreload
   (require 'build-status').client()
 
-  # set these on window for debugging / react dev tools chrome extension
+  # set React on window for debugging / react dev tools chrome extension
   window.React = React
-  window.App = App
-  window.Track = require './models/track'
-  window.DrumSampler = require './models/drum_sampler'
-  window.BasicSampler = require './models/basic_sampler'
-  window.TrackSelection = require './ui/track_selection'
-  window.Meter = require './ui/meter'
-  window.PianoRoll = require './ui/piano_roll'
-  window.GridLines = require './ui/piano_roll/grid_lines'
-  window.Keys = require './ui/piano_roll/keys'
-  window.Notes = require './ui/piano_roll/notes'
-  window.PlaybackMarker = require './ui/piano_roll/playback_marker'
-  window.Selection = require './ui/piano_roll/selection'
-
 
 
 # setup immutable data, dsp thread, and start app
