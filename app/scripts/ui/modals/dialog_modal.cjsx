@@ -3,6 +3,8 @@ Modal = require './modal'
 
 module.exports = React.createClass
 
+  displayName: 'DialogModal'
+
   mixins: [
     React.addons.PureRenderMixin
   ]
@@ -11,8 +13,11 @@ module.exports = React.createClass
     title: React.PropTypes.string
     options: React.PropTypes.object
     working: React.PropTypes.bool
+    width: React.PropTypes.number
+    height: React.PropTypes.number
 
   getDefaultProps: ->
+    working: false
     height: 240
     width: 240
 

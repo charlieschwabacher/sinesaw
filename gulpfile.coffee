@@ -9,7 +9,7 @@ connect = require 'gulp-connect'
 stylus = require 'gulp-stylus'
 autoprefixer = require 'autoprefixer-stylus'
 buildStatus = require 'build-status'
-
+PeerServer = require('peer').PeerServer
 
 
 statusServer = buildStatus.server()
@@ -20,7 +20,12 @@ gulp.task 'server', ->
 
   connect.server
     root: 'public'
+    fallback: 'public/index.html'
     port: 3001
+
+
+gulp.task 'peer-server', ->
+  PeerServer port: 7071, key: 'sinesaw'
 
 
 gulp.task 'js', ->
@@ -81,6 +86,6 @@ gulp.task 'watch-css', ['css'], ->
 
 
 
-gulp.task 'default', ['server', 'watch-js', 'watch-css']
+gulp.task 'default', ['server', 'peer-server', 'watch-js', 'watch-css']
 
 

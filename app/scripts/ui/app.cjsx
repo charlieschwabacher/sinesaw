@@ -23,6 +23,7 @@ module.exports = React.createClass
   propTypes:
     data: React.PropTypes.object.isRequired
     song: React.PropTypes.object.isRequired
+    rtc: React.PropTypes.object.isRequired
     midiState: React.PropTypes.object
     playbackState: React.PropTypes.object
 
@@ -59,6 +60,7 @@ module.exports = React.createClass
         <PlaybackControl
           data={@props.data}
           song={@props.song}
+          rtc={@props.rtc}
           playing={@props.song.playing}
           buffer={@props.song.buffer}
           app={this}

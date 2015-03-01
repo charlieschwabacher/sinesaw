@@ -3,6 +3,8 @@ DialogModal = require './dialog_modal'
 
 module.exports = React.createClass
 
+  displayName: 'SaveModal'
+
   propTypes:
     song: React.PropTypes.object.isRequired
     dismiss: React.PropTypes.func.isRequired

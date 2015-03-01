@@ -5,6 +5,8 @@ SizeMeasureable = require '../mixins/size_measurable'
 
 module.exports = React.createClass
 
+  displayName: 'Modal'
+
   mixins: [
     React.addons.PureRenderMixin
   ]

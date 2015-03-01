@@ -6,6 +6,7 @@ Knob = require './knob'
 Oscilloscope = require './oscilloscope'
 SaveModal = require './modals/save_modal'
 AboutModal = require './modals/about_modal'
+RTCModal = require './modals/rtc_modal'
 
 module.exports = React.createClass
 
@@ -18,6 +19,12 @@ module.exports = React.createClass
   launchSaveModal: ->
     @props.app.launchModal <SaveModal
       song={@props.song}
+      dismiss={@props.app.dismissModal}
+    />
+
+  launchRTCModal: ->
+    @props.app.launchModal <RTCModal
+      rtc={@props.rtc}
       dismiss={@props.app.dismissModal}
     />
 
@@ -69,7 +76,8 @@ module.exports = React.createClass
               <option key={i} value={i}>{i} bpm</option>
           }
         </select>
-        <div className="icon icon-cloud" onClick={@launchSaveModal}/>
+        <div className="icon icon-cloud" onClick={@launchRTCModal}/>
+        <div className="icon icon-tape" onClick={@launchSaveModal}/>
         <div className="icon icon-help" onClick={@launchAboutModal}/>
       </div>
       <div className="logo">sinesaw</div>

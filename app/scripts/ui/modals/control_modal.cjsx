@@ -3,6 +3,8 @@ Modal = require './modal'
 
 module.exports = React.createClass
 
+  displayName: 'ControlModal'
+
   render: ->
     <Modal
       width={400}

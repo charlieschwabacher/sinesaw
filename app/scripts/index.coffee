@@ -38,12 +38,16 @@ document.addEventListener 'DOMContentLoaded', ->
   history = null
   playbackState = null
 
-  savedJson = localStorage.getItem 'song'
-  if savedJson?
-    {state, samples} = JSON.parse savedJson
-    song.loadSamples samples
+  # if they are at root, load their saved song or create a new song
+  if location.pathname is '/'
+    savedJson = localStorage.getItem 'song'
+    if savedJson?
+      {state, samples} = JSON.parse savedJson
+      song.loadSamples samples
+    else
+      state = Song.build()
   else
-    state = Song.build()
+    rtc.connect location.pathname.slice 1
 
 
   # define a debounced function to save current song to localstorage
@@ -56,7 +60,7 @@ document.addEventListener 'DOMContentLoaded', ->
 
 
   # called every time song data changes
-  Cursor.create state, (d, h, c) ->
+  Cursor.create state, (d, h) ->
 
     # keep references to data cursor and history objects
     data = d
@@ -64,9 +68,6 @@ document.addEventListener 'DOMContentLoaded', ->
 
     # pass updated data to dsp thread
     song.update d
-
-    # pass current list of changes to WebRTC adapter
-    rtc.update c
 
     # save changes in localstorage
     saveToLocalStorage()
@@ -77,7 +78,7 @@ document.addEventListener 'DOMContentLoaded', ->
   # render the app on every animation frame
   do frame = ->
     React.render(
-      React.createElement(App, {song, data, playbackState, history}),
+      React.createElement(App, {song, rtc, data, playbackState, history}),
       document.body
     )
     requestAnimationFrame frame

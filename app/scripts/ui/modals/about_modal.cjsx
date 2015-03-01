@@ -3,6 +3,11 @@ DialogModal = require './dialog_modal'
 
 module.exports = React.createClass
 
+  displayName: 'AboutModal'
+
+  propTypes:
+    dismiss: React.PropTypes.func.isRequired
+
   render: ->
     <DialogModal
       title='About Sinesaw'

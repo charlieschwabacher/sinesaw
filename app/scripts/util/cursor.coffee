@@ -26,6 +26,9 @@ module.exports =
         onChange new Cursor(), history
 
 
+    class Handle
+
+
     # declare cursor class w/ access to mutable reference to data in closure
     class Cursor
 
@@ -101,7 +104,10 @@ module.exports =
         update data
 
 
-
     # perform callback one time to start
-    onChange new Cursor(), history
+    onChange new Cursor, history
+
+
+    # return handle for
+    new Handle
 
