@@ -68,6 +68,12 @@ module.exports =
       yScroll: Math.max 0, Math.ceil (minKey + maxKey - size) / 2
       yScale: size
 
+  # we can't prevent default on this because it prevents the scroll event from
+  # firing, but we need to cancel it to prevent scrolling
+  preventWheel: (e) ->
+    el = e.target
+    el.scrollTop = el.scrollLeft = @state.scrollPadding
+
   # watch and prevent default on scroll events, instead keeping scroll position
   # in @state.xScroll and @state.yScroll
   overrideScrolling: (e) ->

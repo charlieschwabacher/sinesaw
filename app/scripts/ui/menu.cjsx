@@ -1,14 +1,36 @@
 React = require 'react'
+CSSTransitionGroup = React.addons.CSSTransitionGroup
+
 
 module.exports = React.createClass
-  
+
+  displayName: 'Menu'
+
+  propTypes:
+    onSelect: React.PropTypes.func.isRequired
+    options: React.PropTypes.array.isRequired
+    open: React.PropTypes.bool.isRequired
+
   onClickOption: (e) ->
     e.stopPropagation()
     @props.onSelect e.target.dataset.option
 
   render: ->
-    options = for option, i in @props.options
-      do (option) =>
-        <div key={i} className="option" onClick={@onClickOption} data-option={option}>{option}</div>
-
-    <div className="ui menu" style={{display: if @props.open then 'block' else 'none'}}>{options}</div>
+    <CSSTransitionGroup transitionName='fade'>
+      {
+        if @props.open
+          <div className='ui menu' key={'m'}>
+            {
+              @props.options.map (option, i) =>
+                <div
+                  key={i}
+                  className="option"
+                  onClick={@onClickOption}
+                  data-option={option}
+                >
+                  {option}
+                </div>
+            }
+          </div>
+      }
+    </CSSTransitionGroup>

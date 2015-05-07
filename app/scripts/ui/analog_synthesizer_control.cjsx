@@ -9,6 +9,11 @@ Oscillator = require './oscillator'
 
 module.exports = React.createClass
 
+  displayName: 'AnalogSynthesizerControl'
+
+  propTypes:
+    instrument: React.PropTypes.object.isRequired
+
   render: ->
     instrument = @props.instrument
 

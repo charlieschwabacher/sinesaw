@@ -10,11 +10,15 @@ RTCModal = require './modals/rtc_modal'
 
 module.exports = React.createClass
 
-  mixins: [React.addons.PureRenderMixin]
+  displayName: 'PlaybackControl'
 
   propTypes:
     data: React.PropTypes.object.isRequired
     song: React.PropTypes.object.isRequired
+
+  mixins: [
+    React.addons.PureRenderMixin
+  ]
 
   launchSaveModal: ->
     @props.app.launchModal <SaveModal
@@ -59,7 +63,10 @@ module.exports = React.createClass
         <div className="icon icon-stop" onClick={song.stop}/>
       </div>
       <div className="group fill"/>
-      <div className="group tempo">
+      <div className="group controls">
+        <Oscilloscope
+          buffer={(song.playing && song.buffer) or new Float32Array 1}
+        />
         <Knob
           label="Level"
           value={data.get 'level'}

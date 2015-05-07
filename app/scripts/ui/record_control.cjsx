@@ -17,6 +17,12 @@ defaultState =
 
 module.exports = React.createClass
 
+  displayName: 'RecordControl'
+
+  propTypes:
+    onConfirm: React.PropTypes.func.isRequired
+    onCancel: React.PropTypes.func.isRequired
+
   getInitialState: ->
     defaultState
 

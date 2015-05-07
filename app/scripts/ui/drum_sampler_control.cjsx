@@ -14,6 +14,12 @@ DrumSampler = require '../models/drum_sampler'
 
 Drum = React.createClass
 
+  displayName: 'Drum'
+
+  propTypes:
+    app: React.PropTypes.object.isRequired
+    drum: React.PropTypes.object.isRequired
+
   mixins: [
     React.addons.PureRenderMixin
     Sortable
@@ -68,6 +74,11 @@ Drum = React.createClass
 
 
 module.exports = React.createClass
+
+  displayName: 'DrumSamplerControl'
+
+  propTypes:
+    instrument: React.PropTypes.object.isRequired
 
   mixins: [
     React.addons.PureRenderMixin

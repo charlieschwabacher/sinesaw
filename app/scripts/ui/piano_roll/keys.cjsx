@@ -5,9 +5,7 @@ keyPattern = [true, false, true, false, true, true, false, true, false, true, fa
 
 module.exports = React.createClass
 
-  mixins: [
-    React.addons.PureRenderMixin
-  ]
+  displayName: 'Keys'
 
   propTypes:
     height: React.PropTypes.number.isRequired
@@ -15,6 +13,10 @@ module.exports = React.createClass
     yScale: React.PropTypes.number.isRequired
     keyWidth: React.PropTypes.number.isRequired
     midiNotes: React.PropTypes.object.isRequired
+
+  mixins: [
+    React.addons.PureRenderMixin
+  ]
 
   render: ->
     height = @props.height

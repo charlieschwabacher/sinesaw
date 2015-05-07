@@ -9,7 +9,7 @@ connect = require 'gulp-connect'
 stylus = require 'gulp-stylus'
 autoprefixer = require 'autoprefixer-stylus'
 buildStatus = require 'build-status'
-PeerServer = require('peer').PeerServer
+UltrawaveServer = require 'ultrawave/server'
 
 
 statusServer = buildStatus.server()
@@ -17,7 +17,6 @@ statusServer = buildStatus.server()
 
 
 gulp.task 'server', ->
-
   connect.server
     root: 'public'
     fallback: 'public/index.html'
@@ -25,7 +24,7 @@ gulp.task 'server', ->
 
 
 gulp.task 'peer-server', ->
-  PeerServer port: 7071, key: 'sinesaw'
+  new UltrawaveServer port: 3002
 
 
 gulp.task 'js', ->

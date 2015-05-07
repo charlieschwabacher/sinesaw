@@ -6,7 +6,7 @@ Visualization = require './waveform/visualization'
 
 module.exports = React.createClass
 
-  mixins: [React.addons.PureRenderMixin, SizeMeasurable, Draggable]
+  displayName: 'Waveform'
 
   propTypes:
     sampleData: React.PropTypes.object
@@ -15,6 +15,8 @@ module.exports = React.createClass
     selectionEnd: React.PropTypes.number
     marginTop: React.PropTypes.number
     marginBottom: React.PropTypes.number
+
+  mixins: [React.addons.PureRenderMixin, SizeMeasurable, Draggable]
 
   # range in pixels for vertical drag to zoom
   range: 300
@@ -84,7 +86,7 @@ module.exports = React.createClass
   render: ->
 
     if @props.sampleData? and @state.width > 0
-      
+
       # render waveform
 
       sampleData = @props.sampleData
@@ -118,7 +120,7 @@ module.exports = React.createClass
           marginTop={@props.marginTop}
           marginBottom={@props.marginBottom}
         />
-  
+
       if selectionStart != selectionEnd
         selection = <Visualization
           sampleData={sampleData}
@@ -133,7 +135,7 @@ module.exports = React.createClass
           marginBottom={@props.marginBottom}
           selection={true}
         />
-      
+
       if selectionEnd < resolution
         postSelection = <Visualization
           sampleData={sampleData}

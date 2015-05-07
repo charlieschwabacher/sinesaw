@@ -9,16 +9,18 @@ Knob = require './knob'
 
 module.exports = React.createClass
 
-  mixins: [
-    SizeMeasurable
-    Draggable
-  ]
+  displayName: 'Envelope'
 
   propTypes:
     label: React.PropTypes.string.isRequired
     env: React.PropTypes.object.isRequired
     dotRadius: React.PropTypes.number
     margin: React.PropTypes.number
+
+  mixins: [
+    SizeMeasurable
+    Draggable
+  ]
 
   getInitialState: ->
     dragTarget: null

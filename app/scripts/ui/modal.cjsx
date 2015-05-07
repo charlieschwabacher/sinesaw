@@ -4,6 +4,11 @@ React = require 'react'
 
 module.exports = React.createClass
 
+  displayName: 'Modal'
+
+  propTypes:
+    children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired
+
   render: ->
     <div {...@props} children={undefined}>
       <div className="modal-backdrop"/>

@@ -7,6 +7,8 @@ Knob = require './knob'
 
 module.exports = React.createClass
 
+  displayName: 'Filter'
+
   propTypes:
     filter: React.PropTypes.object.isRequired
     label: React.PropTypes.string.isRequired

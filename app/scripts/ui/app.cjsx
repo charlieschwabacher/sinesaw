@@ -16,9 +16,7 @@ ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 module.exports = React.createClass
 
-  mixins: [
-    KeyboardInteraction
-  ]
+  displayName: 'App'
 
   propTypes:
     data: React.PropTypes.object.isRequired
@@ -26,12 +24,17 @@ module.exports = React.createClass
     midiState: React.PropTypes.object
     playbackState: React.PropTypes.object
 
+  mixins: [
+    KeyboardInteraction
+  ]
+
   getInitialState: ->
     modalContent: null
+    modalIndex: 0
 
   launchModal: (modalContent) ->
     @props.data.set 'playing', false
-    @setState {modalContent}
+    @setState {modalContent, modalIndex: @state.modalIndex + 1}
 
   dismissModal: ->
     @setState modalContent: null
@@ -99,6 +102,9 @@ module.exports = React.createClass
         </div>
       </div>
       <ReactCSSTransitionGroup transitionName="modal">
-        {@state.modalContent}
+        {
+          if @state.modalContent?
+            <Modal key={@state.modalIndex}>{@state.modalContent}</Modal>
+        }
       </ReactCSSTransitionGroup>
     </div>

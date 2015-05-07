@@ -10,14 +10,16 @@ Draggable = require './mixins/draggable'
 
 module.exports = React.createClass
 
-  range: 100
-
-  mixins: [Draggable]
+  displayName: 'Knob'
 
   propTypes:
     value: React.PropTypes.number.isRequired
     onChange: React.PropTypes.func.isRequired
     disabled: React.PropTypes.bool
+
+  mixins: [Draggable]
+
+  range: 100
 
   getInitialState: ->
     active: false

@@ -31,6 +31,14 @@ Selection = require './piano_roll/selection'
 
 module.exports = React.createClass
 
+  displayName: 'PianoRoll'
+
+  propTypes:
+    data: React.PropTypes.object.isRequired
+    sequence: React.PropTypes.object.isRequired
+    position: React.PropTypes.number.isRequired
+    midiNotes: React.PropTypes.object.isRequired
+
   mixins: [
     React.addons.PureRenderMixin
     SizeMeasurable
@@ -39,12 +47,6 @@ module.exports = React.createClass
     OverrideScrolling
     KeyboardInteraction
   ]
-
-  propTypes:
-    data: React.PropTypes.object.isRequired
-    sequence: React.PropTypes.object.isRequired
-    position: React.PropTypes.number.isRequired
-    midiNotes: React.PropTypes.object.isRequired
 
   getInitialState: ->
 
@@ -162,7 +164,12 @@ module.exports = React.createClass
     gridWidth = Math.max 0, @state.width - @state.keyWidth
 
     <div className="ui piano-roll">
-      <div className="body" ref='container' onScroll={@overrideScrolling}>
+      <div
+        className="body"
+        ref='container'
+        onWheel={@preventWheel}
+        onScroll={@overrideScrolling}
+      >
         <div className="outer" style={outerStyle}>
           <div className="inner" style={innerStyle}>
             <Keys

@@ -7,6 +7,8 @@ React = require 'react'
 
 module.exports = React.createClass
 
+  displayName: 'Chooser'
+
   propTypes:
     onChange: React.PropTypes.func.isRequired
     options: React.PropTypes.array.isRequired

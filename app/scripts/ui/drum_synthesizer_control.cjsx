@@ -10,6 +10,11 @@ DrumSynthesizer = require '../models/drum_synthesizer'
 
 Drum = React.createClass
 
+  displayName: 'Drum'
+
+  propTypes:
+    drum: React.PropTypes.object.isRequired
+
   render: ->
     drum = @props.drum.get()
 
@@ -76,6 +81,11 @@ Drum = React.createClass
 
 
 module.exports = React.createClass
+
+  displayName: 'DrumSynthesizerControl'
+
+  propTypes:
+    instrument: React.PropTypes.object.isRequired
 
   mixins: [
     React.addons.PureRenderMixin

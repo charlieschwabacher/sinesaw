@@ -5,9 +5,7 @@ keyPattern = [true, false, true, false, true, true, false, true, false, true, fa
 
 module.exports = React.createClass
 
-  mixins: [
-    React.addons.PureRenderMixin
-  ]
+  displayName: 'GridLines'
 
   propTypes:
     width: React.PropTypes.number.isRequired
@@ -17,6 +15,10 @@ module.exports = React.createClass
     yScroll: React.PropTypes.number.isRequired
     xScroll: React.PropTypes.number.isRequired
     quantization: React.PropTypes.number.isRequired
+
+  mixins: [
+    React.addons.PureRenderMixin
+  ]
 
   render: ->
     width = @props.width

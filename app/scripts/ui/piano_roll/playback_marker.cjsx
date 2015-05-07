@@ -3,9 +3,7 @@ React = require 'react/addons'
 
 module.exports = React.createClass
 
-  mixins: [
-    React.addons.PureRenderMixin
-  ]
+  displayName: 'PlaybackMarker'
 
   propTypes:
     position: React.PropTypes.number.isRequired
@@ -15,6 +13,10 @@ module.exports = React.createClass
     xScale: React.PropTypes.number.isRequired
     xScroll: React.PropTypes.number.isRequired
     quantization: React.PropTypes.number.isRequired
+
+  mixins: [
+    React.addons.PureRenderMixin
+  ]
 
   render: ->
     width = @props.width
