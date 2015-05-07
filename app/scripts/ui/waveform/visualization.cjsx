@@ -2,7 +2,24 @@ React = require 'react/addons'
 
 module.exports = React.createClass
 
-  mixins: [React.addons.PureRenderMixin]
+  displayName: 'Visualization'
+
+  propTypes:
+    sampleData: React.PropTypes.instanceOf(Float32Array).isRequired
+    resolution: React.PropTypes.number.isRequired
+    sliceSize: React.PropTypes.number.isRequired
+    windowStart: React.PropTypes.number.isRequired
+    fromSlice: React.PropTypes.number.isRequired
+    toSlice: React.PropTypes.number.isRequired
+    width: React.PropTypes.number.isRequired
+    height: React.PropTypes.number.isRequired
+    marginTop: React.PropTypes.number.isRequired
+    marginBottom: React.PropTypes.number.isRequired
+    selection: React.PropTypes.bool
+
+  mixins: [
+    React.addons.PureRenderMixin
+  ]
 
   render: ->
     sampleData = @props.sampleData

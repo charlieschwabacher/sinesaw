@@ -4,7 +4,7 @@ Draggable = require '../mixins/draggable'
 
 module.exports = React.createClass
 
-  mixins: [Draggable, React.addons.PureRenderMixin]
+  displayName: 'Marker'
 
   propTypes:
     name: React.PropTypes.string
@@ -15,6 +15,11 @@ module.exports = React.createClass
     windowCenter: React.PropTypes.number
     width: React.PropTypes.number
     radius: React.PropTypes.number
+
+  mixins: [
+    Draggable
+    React.addons.PureRenderMixin
+  ]
 
   getDefaultProps: ->
     radius: 2

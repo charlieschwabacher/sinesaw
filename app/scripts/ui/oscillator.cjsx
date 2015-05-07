@@ -7,6 +7,8 @@ Knob = require './knob'
 
 module.exports = React.createClass
 
+  displayName: 'Oscillator'
+
   propTypes:
     osc: React.PropTypes.object.isRequired
     label: React.PropTypes.string.isRequired

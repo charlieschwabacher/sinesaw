@@ -9,6 +9,7 @@ connect = require 'gulp-connect'
 stylus = require 'gulp-stylus'
 autoprefixer = require 'autoprefixer-stylus'
 buildStatus = require 'build-status'
+UltrawaveServer = require 'ultrawave/server'
 
 
 
@@ -17,6 +18,8 @@ statusServer = buildStatus.server()
 
 
 gulp.task 'server', ->
+
+  new UltrawaveServer port: 3002
 
   connect.server
     root: 'public'

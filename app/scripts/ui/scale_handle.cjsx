@@ -3,9 +3,17 @@ Draggable = require './mixins/draggable'
 
 module.exports = React.createClass
 
-  range: 300
+  displayName: 'ScaleHandle'
+
+  propTypes:
+    value: React.PropTypes.number.isRequired
+    min: React.PropTypes.number.isRequired
+    max: React.PropTypes.number.isRequired
+    onChange: React.PropTypes.func.isRequired
 
   mixins: [Draggable]
+
+  range: 300
 
   getInitialState: ->
     active: false

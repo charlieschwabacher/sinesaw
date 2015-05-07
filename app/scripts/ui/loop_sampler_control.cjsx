@@ -9,6 +9,11 @@ Envelope = require './envelope'
 
 module.exports = React.createClass
 
+  displayName: 'LoopSamplerControl'
+
+  propTypes:
+    instrument: React.PropTypes.object.isRequired
+
   setPolyphony: (e) ->
     @props.instrument.setPolyphony parseInt e.target.value
 

@@ -5,6 +5,11 @@ Sortable = require './mixins/sortable'
 
 ListOption = React.createClass
 
+  displayName: 'ListOption'
+
+  propTypes:
+    selectOption: React.PropTypes.func.isRequired
+
   mixins: [Sortable, React.addons.PureRenderMixin]
 
   render: ->
@@ -27,6 +32,16 @@ ListOption = React.createClass
 
 
 module.exports = React.createClass
+
+  displayName: 'ListControl'
+
+  propTypes:
+    onAdd: React.PropTypes.func.isRequired
+    onSort: React.PropTypes.func.isRequired
+    onRemove: React.PropTypes.func.isRequired
+    onSelect: React.PropTypes.func.isRequired
+    options: React.PropTypes.array.isRequired
+    selectedIndex: React.PropTypes.number.isRequired
 
   mixins: [React.addons.PureRenderMixin]
 

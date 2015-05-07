@@ -5,6 +5,14 @@ decoder = require '../dsp/components/global_context'
 
 module.exports = React.createClass
 
+  displayName: 'SampleControl'
+
+  propTypes:
+    app: React.PropTypes.object.isRequired
+    sampler: React.PropTypes.object.isRequired
+    sampleName: React.PropTypes.string
+    label: React.PropTypes.string
+
   # range in pixels for vertical drag to zoom
   range: 300
   dragTypeDistance: 10

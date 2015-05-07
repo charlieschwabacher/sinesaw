@@ -4,6 +4,8 @@ React = require 'react'
 
 module.exports = React.createClass
 
+  displayName: 'Meter'
+
   propTypes:
     level: React.PropTypes.number.isRequired
     steps: React.PropTypes.number

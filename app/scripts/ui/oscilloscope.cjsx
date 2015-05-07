@@ -2,6 +2,11 @@ React = require 'react'
 
 module.exports = React.createClass
 
+  displayName: 'Oscilloscope'
+
+  propTypes:
+    buffer: React.PropTypes.instanceOf(Float32Array).isRequired
+
   mixins: [
     React.addons.PureRenderMixin
   ]

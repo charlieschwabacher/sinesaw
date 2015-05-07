@@ -4,12 +4,7 @@ Keyboard = require 'keyboardjs'
 
 module.exports = React.createClass
 
-  mixins: [
-    React.addons.PureRenderMixin
-  ]
-
-  getDefaultProps: ->
-    radius: 0
+  displayName: 'Notes'
 
   propTypes:
     notes: React.PropTypes.object.isRequired
@@ -30,6 +25,13 @@ module.exports = React.createClass
     onMouseOut: React.PropTypes.func
     onClick: React.PropTypes.func
     onDoubleClick: React.PropTypes.func
+
+  mixins: [
+    React.addons.PureRenderMixin
+  ]
+
+  getDefaultProps: ->
+    radius: 0
 
   noteOnScreen: (note) ->
     note.start <= @props.xScroll + @props.xScale and

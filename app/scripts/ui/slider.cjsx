@@ -11,15 +11,17 @@ Draggable = require './mixins/draggable'
 
 module.exports = React.createClass
 
-  mixins: [
-    SizeMeasurable
-    Draggable
-  ]
+  displayName: 'Slider'
 
   propTypes:
     value: React.PropTypes.number.isRequired
     onChange: React.PropTypes.func.isRequired
     disabled: React.PropTypes.bool
+
+  mixins: [
+    SizeMeasurable
+    Draggable
+  ]
 
   getInitialState: ->
     active: false

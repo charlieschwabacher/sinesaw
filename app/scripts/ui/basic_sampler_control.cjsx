@@ -12,6 +12,8 @@ keyOptions = require '../util/key_options'
 
 module.exports = React.createClass
 
+  displayName: 'BasicSamplerControl'
+
   getInitialState: ->
     buffer: null
 

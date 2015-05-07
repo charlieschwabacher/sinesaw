@@ -23,6 +23,14 @@ ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 TrackRow = React.createClass
 
+  displayName: 'TrackRow'
+
+  propTypes:
+    track: React.PropTypes.object.isRequired
+    selectTrack: React.PropTypes.func.isRequired
+    index: React.PropTypes.number.isRequired
+    meterLevel: React.PropTypes.number.isRequired
+
   mixins: [
     React.addons.PureRenderMixin
     Sortable
@@ -48,7 +56,7 @@ TrackRow = React.createClass
     >
       <div className='name'>{track.get 'name'}</div>
       <Knob
-        label="Level"
+        label='Level'
         value={instrument.get 'level'}
         onChange={instrument.bind 'level'}
       />
@@ -57,6 +65,8 @@ TrackRow = React.createClass
 
 
 module.exports = React.createClass
+
+  displayName: 'TrackSelection'
 
   propTypes:
     tracks: React.PropTypes.object.isRequired
@@ -107,8 +117,8 @@ module.exports = React.createClass
     tracks = @props.tracks.get()
 
     <div className='ui track-selection'>
-      <div className="tracks">
-        <ReactCSSTransitionGroup transitionName="track">
+      <div className='tracks'>
+        <ReactCSSTransitionGroup transitionName='track'>
           {
             tracks.map (track, i) =>
               <TrackRow
@@ -125,13 +135,13 @@ module.exports = React.createClass
           }
         </ReactCSSTransitionGroup>
       </div>
-      <div className="controls">
+      <div className='controls'>
         <Menu
           options={Object.keys @trackTypes}
           onSelect={@addTrack}
           open={@state.menuOpen}
         />
-        <div className="icon icon-plus pull-right" onClick={@toggleMenu}></div>
-        <div className="icon icon-minus pull-left" onClick={@removeTrack}></div>
+        <div className='icon icon-plus pull-right' onClick={@toggleMenu}/>
+        <div className='icon icon-minus pull-left' onClick={@removeTrack}/>
       </div>
     </div>
