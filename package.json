@@ -22,6 +22,6 @@
     "cuid": "^1.2.4",
     "keyboardjs": "^0.4.2",
     "react": "^0.13.2",
-    "ultrawave": "0.0.18"
+    "ultrawave": "0.0.20"
   }
 }

@@ -17,7 +17,9 @@ module.exports = React.createClass
     onChange: React.PropTypes.func.isRequired
     disabled: React.PropTypes.bool
 
-  mixins: [Draggable]
+  mixins: [
+    Draggable
+  ]
 
   range: 100
 

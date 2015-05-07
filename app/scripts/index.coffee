@@ -1,4 +1,4 @@
-Cursor = require './util/cursor'
+Ultrawave = require 'ultrawave'
 React = require 'react/addons'
 SongWorker = require './core/song_worker'
 Song = require './models/song'
@@ -17,10 +17,11 @@ if process.env.NODE_ENV is 'development'
 
 
 # setup immutable data, dsp thread, and start app
-document.addEventListener 'DOMContentLoaded', ->
-  song = new SongWorker
+launch = (songData) ->
+
+  song = new SongBridge
   data = null
-  history = null
+  changes = null
   playbackState = null
 
   savedJson = localStorage.getItem 'song'
@@ -34,31 +35,45 @@ document.addEventListener 'DOMContentLoaded', ->
   saveToLocalStorage = debounce 2000, ->
     localStorage.setItem 'song', song.toJSON()
 
-
   # called when playback state is received from audio processing thread
   song.onFrame (state) -> playbackState = state
 
+  # create an ultrawave to synchronize song state over webrtc
+  ultrawave = new Ultrawave 'ws://localhost:3002'
+  group = "sinesaw:#{window.location.search}"
 
-  # called every time song data changes
-  Cursor.create state, (d, h) ->
+  ultrawave
 
-    # keep references to data cursor and history objects
-    data = d
-    history = h
+    .joinOrCreate group, songData, (d, c) ->
 
-    # pass updated data to dsp thread
-    song.update d
+      # pass updated data to dsp thread
+      song.update d
 
-    # save changes in localstorage
-    saveToLocalStorage()
+      # keep references to data cursor and history objects
+      data = d
+      changes = c
 
-  , history: true
+      # save changes in localstorage
+      saveToLocalStorage()
+
+    .then ->
+
+      # render the app on every animation frame
+      frame = ->
+        React.render(
+          React.createElement(App, {song, data, playbackState, history}),
+          document.body
+        )
+        requestAnimationFrame frame
+
+      frame()
 
 
-  # render the app on every animation frame
-  do frame = ->
-    React.render(
-      React.createElement(App, {song, data, playbackState, history}),
-      document.body
-    )
-    requestAnimationFrame frame
+document.addEventListener 'DOMContentLoaded', ->
+
+  data = localStorage.getItem 'song'
+
+  if data?
+    launch JSON.parse data
+  else
+    launch require './extra/demo_song'
