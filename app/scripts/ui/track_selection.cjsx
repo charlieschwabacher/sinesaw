@@ -100,9 +100,8 @@ module.exports = React.createClass
     track = Track.build {name, instrument: @trackTypes[name].build()}
     index = @props.tracks.get().length
 
-    @props.tracks.batched =>
-      @props.tracks.set [index], track
-      @props.selectedTrack.set index
+    @props.tracks.set [index], track
+    @props.selectedTrack.set index
 
     @setState menuOpen: false
 

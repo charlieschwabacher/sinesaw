@@ -3,6 +3,7 @@
 # to a song object.
 
 React = require 'react'
+Modal = require './modal'
 PlaybackControl = require './playback_control'
 TrackSelection = require './track_selection'
 PianoRoll = require './piano_roll'

@@ -72,7 +72,6 @@ module.exports = React.createClass
           value={data.get 'level'}
           onChange={data.bind 'level'}
         />
-        <Oscilloscope buffer={if song.playing then song.buffer else [0]}/>
         <select
           value={data.get 'bpm'}
           onChange={data.bind 'bpm', (e) -> parseInt e.target.value}

@@ -1,7 +1,6 @@
 Ultrawave = require 'ultrawave'
 React = require 'react/addons'
 SongWorker = require './core/song_worker'
-Song = require './models/song'
 App = require './ui/app'
 debounce = require './util/debounce'
 
@@ -17,19 +16,14 @@ if process.env.NODE_ENV is 'development'
 
 
 # setup immutable data, dsp thread, and start app
-launch = (songData) ->
+launch = ({state, samples}) ->
 
-  song = new SongBridge
+  song = new SongWorker
+  song.loadSamples samples if samples?
+
   data = null
   changes = null
   playbackState = null
-
-  savedJson = localStorage.getItem 'song'
-  if savedJson?
-    {state, samples} = JSON.parse savedJson
-    song.loadSamples samples
-  else
-    state = Song.build()
 
   # define a debounced function to save current song to localstorage
   saveToLocalStorage = debounce 2000, ->
@@ -39,17 +33,17 @@ launch = (songData) ->
   song.onFrame (state) -> playbackState = state
 
   # create an ultrawave to synchronize song state over webrtc
-  ultrawave = new Ultrawave 'ws://examples-ultrawave.rhcloud.com:8000'
+  ultrawave = new Ultrawave 'ws://localhost:3002'
   group = "sinesaw:#{window.location.search}"
 
   ultrawave
 
-    .joinOrCreate group, songData, (d, c) ->
+    .joinOrCreate group, state, (d, c) ->
 
       # pass updated data to dsp thread
       song.update d
 
-      # keep references to data cursor and history objects
+      # keep references to data cursor and changes objects
       data = d
       changes = c
 

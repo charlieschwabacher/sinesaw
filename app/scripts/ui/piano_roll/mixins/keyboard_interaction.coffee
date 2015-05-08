@@ -17,9 +17,8 @@ module.exports =
 
   onBackspaceKey: (e) ->
     e.preventDefault()
-    @props.sequence.batched =>
-      for id in @state.selectedNotes
-        @props.sequence.delete ['notes', id]
+    for id in @state.selectedNotes
+      @props.sequence.delete ['notes', id]
 
   onArrowKey: (e) ->
     e.preventDefault()
