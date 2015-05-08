@@ -2,7 +2,6 @@ Cursor = require './util/cursor'
 React = require 'react/addons'
 SongWorker = require './core/song_worker'
 Song = require './models/song'
-WebRTC = require './util/web_rtc'
 App = require './ui/app'
 debounce = require './util/debounce'
 
@@ -20,22 +19,16 @@ if process.env.NODE_ENV is 'development'
 # setup immutable data, dsp thread, and start app
 document.addEventListener 'DOMContentLoaded', ->
   song = new SongWorker
-  rtc = new WebRTC
   data = null
   history = null
   playbackState = null
 
-  # if they are at root, load their saved song or create a new song
-  if location.pathname is '/'
-    savedJson = localStorage.getItem 'song'
-    if savedJson?
-      {state, samples} = JSON.parse savedJson
-      song.loadSamples samples
-    else
-      state = Song.build()
+  savedJson = localStorage.getItem 'song'
+  if savedJson?
+    {state, samples} = JSON.parse savedJson
+    song.loadSamples samples
   else
-    rtc.connect location.pathname.slice 1
-
+    state = Song.build()
 
   # define a debounced function to save current song to localstorage
   saveToLocalStorage = debounce 2000, ->
@@ -65,7 +58,7 @@ document.addEventListener 'DOMContentLoaded', ->
   # render the app on every animation frame
   do frame = ->
     React.render(
-      React.createElement(App, {song, rtc, data, playbackState, history}),
+      React.createElement(App, {song, data, playbackState, history}),
       document.body
     )
     requestAnimationFrame frame

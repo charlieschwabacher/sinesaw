@@ -24,7 +24,6 @@ module.exports = React.createClass
 
   launchRTCModal: ->
     @props.app.launchModal <RTCModal
-      rtc={@props.rtc}
       dismiss={@props.app.dismissModal}
     />
 

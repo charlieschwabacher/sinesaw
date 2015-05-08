@@ -6,7 +6,6 @@ module.exports = React.createClass
   displayName: 'RTCModal'
 
   propTypes:
-    rtc: React.PropTypes.object.isRequired
     dismiss: React.PropTypes.func.isRequired
 
   render: ->
@@ -18,8 +17,8 @@ module.exports = React.createClass
         Share this link to allow others to join you in editing this song:
       </p>
       <p className='text-center'>
-        <a href={"/#{@props.rtc.id}"}>
-          {"//#{window.location.host}/#{@props.rtc.id}"}
+        <a href={"/#"}>
+          {"//#{window.location.host}/#"}
         </a>
       </p>
       <p>
