@@ -39,7 +39,7 @@ launch = (songData) ->
   song.onFrame (state) -> playbackState = state
 
   # create an ultrawave to synchronize song state over webrtc
-  ultrawave = new Ultrawave 'ws://localhost:3002'
+  ultrawave = new Ultrawave 'ws://examples-ultrawave.rhcloud.com:8000'
   group = "sinesaw:#{window.location.search}"
 
   ultrawave
