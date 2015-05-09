@@ -70,7 +70,8 @@ module.exports = React.createClass
 
   propTypes:
     tracks: React.PropTypes.object.isRequired
-    selectedTrack: React.PropTypes.object.isRequired
+    selectedTrack: React.PropTypes.number.isRequired
+    selectTrack: React.PropTypes.func.isRequired
 
   trackTypes:
     'Drum Sampler': DrumSampler
@@ -101,13 +102,13 @@ module.exports = React.createClass
     index = @props.tracks.get().length
 
     @props.tracks.set [index], track
-    @props.selectedTrack.set index
+    @props.selectTrack index
 
     @setState menuOpen: false
 
   removeTrack: ->
     tracks = @props.tracks.get().slice 0
-    selectedTrack = @props.selectedTrack.get()
+    selectedTrack = @props.selectedTrack
 
     Track.destroy @props.song, tracks[selectedTrack]
 
@@ -115,11 +116,11 @@ module.exports = React.createClass
     @props.tracks.set [], tracks
 
     index = Math.max 0, Math.min selectedTrack, tracks.length - 1
-    @props.selectedTrack.set index
+    @props.selectTrack index
 
   render: ->
     tracks = @props.tracks.get()
-    selectedTrack = @props.selectedTrack.get()
+    selectedTrack = @props.selectedTrack
 
     <div className='ui track-selection'>
       <div className='tracks'>
@@ -132,7 +133,7 @@ module.exports = React.createClass
                 track={@props.tracks.cursor i}
                 meterLevel={@props.meterLevels?[track._id] or 0}
                 selected={parseInt(selectedTrack) == parseInt(i)}
-                selectTrack={=> @props.selectedTrack.set i}
+                selectTrack={=> @props.selectTrack i}
                 dragging={@state.dragging}
                 updateDragging={(dragging) => @setState {dragging}}
                 items={@props.tracks}

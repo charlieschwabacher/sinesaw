@@ -32,6 +32,7 @@ module.exports = React.createClass
   getInitialState: ->
     modalContent: null
     modalIndex: 0
+    selectedTrack: 0
 
   launchModal: (modalContent) ->
     @props.data.set 'playing', false
@@ -41,7 +42,7 @@ module.exports = React.createClass
     @setState modalContent: null
 
   render: ->
-    selectedTrack = @props.data.get 'selectedTrack'
+    selectedTrack = @state.selectedTrack
     track = @props.data.cursor ['tracks', selectedTrack]
     position = @props.song.getPosition()
     empty = not track.get()?
@@ -72,7 +73,8 @@ module.exports = React.createClass
         <div className="column sidebar">
           <TrackSelection
             tracks={@props.data.cursor 'tracks'}
-            selectedTrack={@props.data.cursor 'selectedTrack'}
+            selectedTrack={selectedTrack}
+            selectTrack={(i) => @setState selectedTrack: i}
             meterLevels={@props.playbackState?.meterLevels}
             song={@props.song}
           />
