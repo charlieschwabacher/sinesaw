@@ -102,7 +102,8 @@ module.exports =
   # of a translation or resize of the selected notes.
   onMouseDownNote: (e) ->
     e.stopPropagation()
-    id = e.target.dataset.id
+
+    id = e.target.getAttribute 'data-id'
     position = e.target.getBoundingClientRect()
 
     # handle note selection
@@ -154,7 +155,7 @@ module.exports =
   # remove the double clicked note
   onDoubleClickNote: (e) ->
     e.stopPropagation()
-    @props.sequence.delete ['notes', e.target.dataset.id]
+    @props.sequence.delete ['notes', e.target.getAttribute 'data-id']
 
 
   # A drag can either be selection, translation of notes, or resize of notes.
