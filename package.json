@@ -1,5 +1,9 @@
 {
   "name": "sinesaw",
+  "scripts": {
+    "start": "$(npm bin)/gulp",
+    "test": "$(npm bin)/mocha"
+  },
   "devDependencies": {
     "autoprefixer-stylus": "^0.3.0",
     "brfs": "^1.2.0",
