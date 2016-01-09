@@ -12,7 +12,7 @@ files.  `mocha` to run tests.
 
 The idea behind sinesaw is to create an in browser DAW with an interface similar
 to Ableton Live.  In terms of latency and processing power, it is difficult for
-javascript to complete with native DAWs, but running in browser makes
+javascript to complete with native code, but running in browser makes
 collaboration and sharing so easy that I think there is an interesting place for
 it.  I hope the limited processing power will inspire creativity more than hold
 people back.
@@ -30,9 +30,11 @@ the current time, this single function is called for every sample of audio.
 This approach to audio was inspired by the excellent
 [wavepot](http://wavepot.com) project.
 
-Sinesaw uses React.js for the user interface, and a custom cursor library for
-immutable data modeling.. Song state is kept in a single object passed from the
-ui to the audio processing code.
+Sinesaw uses React.js for the user interface, and models data with the
+[ultrawave](//github.com/charlieschwabacher/ultrawave) library.  Ultrawave
+handles synchronization of state between peers, and provides a single object
+containing the complete application state, which is passed from the ui to the
+audio processing thread.
 
 
 ### approaching the code
