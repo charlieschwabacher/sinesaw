@@ -5,6 +5,7 @@ Web audio DAW.  Requires Chrome >= 39.
 `npm install` and then `gulp` to run a server and watch coffee/styl source
 files.  `mocha` to run tests.
 
+![Screenshot](screenshot.png?raw=true "Screenshot")
 
 ---
 
