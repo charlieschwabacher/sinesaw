@@ -85,6 +85,6 @@ module.exports = class AudioRecorder
     this
 
   destroy: ->
-    @recorder.disconnect @input
+    @input.disconnect @recorder
     @recorder.disconnect context.destination
     @worker.terminate()

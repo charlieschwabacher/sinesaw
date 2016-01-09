@@ -27,9 +27,6 @@ Sinesaw plays audio through through a single scriptProcessor audio node running
 in a worker thread - the audio output is a pure function of the song state and
 the current time, this single function is called for every sample of audio.
 
-This approach to audio was inspired by the excellent
-[wavepot](http://wavepot.com) project.
-
 Sinesaw uses React.js for the user interface, and models data with the
 [ultrawave](//github.com/charlieschwabacher/ultrawave) library.  Ultrawave
 handles synchronization of state between peers, and provides a single object
