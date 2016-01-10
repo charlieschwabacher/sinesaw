@@ -16,7 +16,7 @@ module.exports = React.createClass
     @fileInput = document.createElement 'input'
     @fileInput.type = 'file'
     @fileInput.style.display = 'none'
-    @getDOMNode().appendChild @fileInput
+    ReactDOM.findDOMNode(this).appendChild @fileInput
     @fileInput.addEventListener 'change', @onFileSelect
 
     @a = document.createElement 'a'

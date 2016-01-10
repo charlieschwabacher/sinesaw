@@ -22,10 +22,10 @@ module.exports = React.createClass
     sampleStart: 0
 
   triggerFileInput: ->
-    @refs.input.getDOMNode().click()
+    @refs.input.click()
 
   onFileSelect: ->
-    file = @refs.input.getDOMNode().files[0]
+    file = @refs.input.files[0]
 
     if file?
       reader = new FileReader

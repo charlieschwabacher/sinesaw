@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 PureRenderMixin = require 'react-addons-pure-render-mixin'
 SizeMeasurable = require './mixins/size_measurable'
 Draggable = require './mixins/draggable'
@@ -50,7 +51,8 @@ module.exports = React.createClass
     @initialWindowCenter = @state.windowCenter
 
     # get sample index of initial mousdown
-    relativePosition = (@dragStartPosition.x - @getDOMNode().getBoundingClientRect().left) / @state.width
+    element = ReactDOM.findDOMNode this
+    relativePosition = (@dragStartPosition.x - element.getBoundingClientRect().left) / @state.width
     @initialPosition = @state.windowCenter + @state.windowSize * (relativePosition - 0.5)
 
   onDragEnd: ->

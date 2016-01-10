@@ -21,7 +21,7 @@ module.exports = React.createClass
 
   propTypes:
     onConfirm: React.PropTypes.func.isRequired
-    onCancel: React.PropTypes.func.isRequired
+    dismiss: React.PropTypes.func.isRequired
 
   getInitialState: ->
     defaultState
