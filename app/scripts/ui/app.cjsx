@@ -79,30 +79,28 @@ module.exports = React.createClass
             song={@props.song}
           />
         </div>
-        <div className="column main">
-          <div className="row sequence">
-            {
-              unless empty
-                <PianoRoll
-                  data={@props.data}
-                  midiNotes={@props.song.midiInput.notes}
-                  sequence={sequence}
-                  position={position}
-                />
-            }
-          </div>
-          <div className="row instrument">
-            {
-              if ControlClass?
-                <ControlClass
-                  key={track.get '_id'}
-                  song={@props.song}
-                  instrument={instrument}
-                  app={this}
-                />
-            }
-          </div>
+        <div className="column sequence">
+          {
+            unless empty
+              <PianoRoll
+                data={@props.data}
+                midiNotes={@props.song.midiInput.notes}
+                sequence={sequence}
+                position={position}
+              />
+          }
         </div>
+      </div>
+      <div className="row instrument">
+        {
+          if ControlClass?
+            <ControlClass
+              key={track.get '_id'}
+              song={@props.song}
+              instrument={instrument}
+              app={this}
+            />
+        }
       </div>
       <ReactCSSTransitionGroup transitionName="modal">
         {

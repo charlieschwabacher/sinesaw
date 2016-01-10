@@ -1,7 +1,5 @@
 BUGS:
 
-- resizing window causes envelopes to grow and not return to original size
-
 - after stopping audio and then restarting, sometimes get a chunk of white noise
   before audio plays normally - seems like its coming from drum synthesizer, but
   not 100% sure about that. (dividing by a very small number? something to do w/

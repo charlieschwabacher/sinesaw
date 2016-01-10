@@ -105,20 +105,31 @@ a
   flex-shrink 0
   flex-grow 0
 
-.column.sidebar
-  flex-basis auto
-  flex-shrink 0
-  flex-grow 0
-
-.row.sequence
-  height 100%
-
 .row.instrument
   flex-basis 263px
   flex-shrink 0
   flex-grow 0
   justify-content flex-start
   overflow-x scroll
+
+.row.main
+  flex-grow 1
+  flex-shrink 1
+  position relative
+
+.column.sidebar
+  position absolute
+  top 0
+  bottom 0
+  left 0
+  width 160px
+
+.column.sequence
+  position absolute
+  top 0
+  bottom 0
+  right 0
+  left 160px
 
 .pull-left
   float left

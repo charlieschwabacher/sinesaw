@@ -64,7 +64,7 @@ gulp.task 'watch-js', ['js'], ->
   gulp.watch ['./app/scripts/**'], ['js']
 
 
-gulp.task 'css', ->
+gulp.task 'css', ['icons'], ->
 
   gulp
     .src './app/styles/index.styl'
@@ -93,15 +93,16 @@ gulp.task 'icons', ->
     .src './app/styles/icons/*.svg'
     .pipe iconfontCss
       fontName: 'icons'
-      targetPath: '../app/styles/icons.css'
+      path: './app/styles/icons/template.css'
+      targetPath: '../app/styles/icons/icons.css'
     .pipe iconfont
       fontName: 'icons'
       appendUnicode: true
-      formats: ['ttf']
+      formats: ['woff']
       timestamp: Math.round Date.now() / 1000
     .pipe gulp.dest './public/'
 
 
-gulp.task 'default', ['server', 'peer-server', 'icons', 'watch-js', 'watch-css']
+gulp.task 'default', ['server', 'peer-server', 'watch-js', 'watch-css']
 
 
