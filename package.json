@@ -24,6 +24,8 @@
     "async": "^0.9.0",
     "base64-arraybuffer": "^0.1.2",
     "cuid": "^1.2.4",
+    "gulp-iconfont": "^5.0.1",
+    "gulp-iconfont-css": "^2.0.0",
     "keyboardjs": "^0.4.2",
     "react": "^0.13.2",
     "ultrawave": "0.0.20"

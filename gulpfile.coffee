@@ -8,6 +8,8 @@ brfs = require 'brfs'
 connect = require 'gulp-connect'
 stylus = require 'gulp-stylus'
 autoprefixer = require 'autoprefixer-stylus'
+iconfont = require 'gulp-iconfont'
+iconfontCss = require 'gulp-iconfont-css'
 buildStatus = require 'build-status'
 UltrawaveServer = require 'ultrawave/server'
 
@@ -69,6 +71,7 @@ gulp.task 'css', ->
     .pipe(
       stylus(
         use: autoprefixer browsers: ['ios 7']
+        'include css': true
         sourcemap:
           inline: true
           sourceRoot: '.'
@@ -84,7 +87,21 @@ gulp.task 'watch-css', ['css'], ->
   gulp.watch ['./app/styles/**'], ['css']
 
 
+gulp.task 'icons', ->
 
-gulp.task 'default', ['server', 'peer-server', 'watch-js', 'watch-css']
+  gulp
+    .src './app/styles/icons/*.svg'
+    .pipe iconfontCss
+      fontName: 'icons'
+      targetPath: '../app/styles/icons.css'
+    .pipe iconfont
+      fontName: 'icons'
+      appendUnicode: true
+      formats: ['ttf']
+      timestamp: Math.round Date.now() / 1000
+    .pipe gulp.dest './public/'
+
+
+gulp.task 'default', ['server', 'peer-server', 'icons', 'watch-js', 'watch-css']
 
 

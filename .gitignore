@@ -1,2 +1,6 @@
 node_modules
 .DS_Store
+public/index.css
+public/index.js
+public/dsp.js
+public/icons.woff

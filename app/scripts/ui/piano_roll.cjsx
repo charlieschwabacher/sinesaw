@@ -281,8 +281,8 @@ module.exports = React.createClass
           value={@state.yScale}
           onChange={@updateYScale}
         >
-          <span className="icon icon-arrow-up"/>
-          <span className="icon icon-arrow-down"/>
+          <span className="icon icon-up"/>
+          <span className="icon icon-down"/>
         </ScaleHandle>
         <ScaleHandle
           min={@state.minXScale}
@@ -290,8 +290,8 @@ module.exports = React.createClass
           value={@state.xScale}
           onChange={@updateXScale}
         >
-          <span className="icon icon-arrow-left"/>
-          <span className="icon icon-arrow-right"/>
+          <span className="icon icon-left"/>
+          <span className="icon icon-right"/>
         </ScaleHandle>
       </div>
     </div>

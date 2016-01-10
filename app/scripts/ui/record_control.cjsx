@@ -121,7 +121,7 @@ module.exports = React.createClass
     ]
 
     rightButtons = [
-      <div className="icon icon-cross" key="c" onClick={@props.dismiss}/>
+      <div className="icon icon-x" key="c" onClick={@props.dismiss}/>
     ]
 
     if @state.sampleData?
@@ -146,7 +146,7 @@ module.exports = React.createClass
         onClick={if @state.playing then @stop else @play}
       />
 
-      rightButtons.push <div className="icon icon-checkmark" key="s" onClick={@confirm}/>
+      rightButtons.push <div className="icon icon-check" key="s" onClick={@confirm}/>
 
     else
 

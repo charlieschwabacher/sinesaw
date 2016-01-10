@@ -33,7 +33,7 @@ module.exports = React.createClass
             <div className="title">{@props.title}</div>
         }
         <div className="right">
-          <div className="icon icon-cross" key="c" onClick={@props.dismiss}/>
+          <div className="icon icon-x" key="c" onClick={@props.dismiss}/>
         </div>
       </div>
       <div className="column content">

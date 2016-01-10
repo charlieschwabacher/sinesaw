@@ -105,13 +105,13 @@ module.exports = React.createClass
       </div>
       <div className="controls">
         <div className="control" onClick={@triggerFileInput}>
-          <div className="icon icon-arrow-up"/>
+          <div className="icon icon-up"/>
         </div>
         <div className="control" onClick={@recordSample}>
           <div className="icon icon-record"/>
         </div>
         <div className="control" onClick={@clear}>
-          <div className="icon icon-cross"/>
+          <div className="icon icon-x"/>
         </div>
         <div className="file-name">{@props.sampleName}</div>
       </div>
