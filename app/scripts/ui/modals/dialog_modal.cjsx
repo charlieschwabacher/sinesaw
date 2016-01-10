@@ -1,4 +1,5 @@
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Modal = require './modal'
 
 module.exports = React.createClass
@@ -6,7 +7,7 @@ module.exports = React.createClass
   displayName: 'DialogModal'
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   propTypes:

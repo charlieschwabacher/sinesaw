@@ -1,6 +1,6 @@
 # UI for the basic sampler instrument
 
-React = require 'react/addons'
+React = require 'react'
 Knob = require './knob'
 Chooser = require './chooser'
 Slider = require './slider'

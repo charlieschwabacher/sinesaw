@@ -14,6 +14,7 @@
 # 'OverrideScrolling'.
 
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 SizeMeasurable = require './mixins/size_measurable'
 Draggable = require './mixins/draggable'
 
@@ -40,7 +41,7 @@ module.exports = React.createClass
     midiNotes: React.PropTypes.object.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
     SizeMeasurable
     Draggable
     MouseInteraction

@@ -1,6 +1,7 @@
 # ui for a sortable selectable list of items
 
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Sortable = require './mixins/sortable'
 
 ListOption = React.createClass
@@ -10,7 +11,7 @@ ListOption = React.createClass
   propTypes:
     selectOption: React.PropTypes.func.isRequired
 
-  mixins: [Sortable, React.addons.PureRenderMixin]
+  mixins: [Sortable, PureRenderMixin]
 
   render: ->
     className = 'option'
@@ -43,7 +44,7 @@ module.exports = React.createClass
     options: React.PropTypes.array.isRequired
     selectedIndex: React.PropTypes.number.isRequired
 
-  mixins: [React.addons.PureRenderMixin]
+  mixins: [PureRenderMixin]
 
   getInitialState: ->
     dragging: null

@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Draggable = require '../mixins/draggable'
 
 
@@ -18,7 +19,7 @@ module.exports = React.createClass
 
   mixins: [
     Draggable
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   getDefaultProps: ->

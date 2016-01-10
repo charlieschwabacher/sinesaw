@@ -5,7 +5,9 @@
 # objects, 'selectedTrack', the index of the currently selected track, and
 # 'selectTrack', a callback to set the currently selected track.
 
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
+CSSTransitionGroup = require 'react-addons-css-transition-group'
 Sortable = require './mixins/sortable'
 Knob = require './knob'
 Meter = require './meter'
@@ -16,7 +18,6 @@ LoopSampler = require '../models/loop_sampler'
 AnalogSynthesizer = require '../models/analog_synthesizer'
 DrumSynthesizer = require '../models/drum_synthesizer'
 Track = require '../models/track'
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 
 # define a private component representing a single track
@@ -32,7 +33,7 @@ TrackRow = React.createClass
     meterLevel: React.PropTypes.number.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
     Sortable
   ]
 
@@ -124,7 +125,11 @@ module.exports = React.createClass
 
     <div className='ui track-selection'>
       <div className='tracks'>
-        <ReactCSSTransitionGroup transitionName='track'>
+        <CSSTransitionGroup
+          transitionName='track'
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+        >
           {
             tracks.map (track, i) =>
               <TrackRow
@@ -139,7 +144,7 @@ module.exports = React.createClass
                 items={@props.tracks}
               />
           }
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       </div>
       <div className='controls'>
         <Menu

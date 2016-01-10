@@ -3,7 +3,7 @@
 # to a song object.
 
 React = require 'react'
-Modal = require './modal'
+CSSTransitionGroup = require 'react-addons-css-transition-group'
 PlaybackControl = require './playback_control'
 TrackSelection = require './track_selection'
 PianoRoll = require './piano_roll'
@@ -13,7 +13,6 @@ DrumSynthesizerControl = require './drum_synthesizer_control'
 DrumSamplerControl = require './drum_sampler_control'
 LoopSamplerControl = require './loop_sampler_control'
 KeyboardInteraction = require './mixins/keyboard_interaction'
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 module.exports = React.createClass
 
@@ -102,10 +101,14 @@ module.exports = React.createClass
             />
         }
       </div>
-      <ReactCSSTransitionGroup transitionName="modal">
+      <CSSTransitionGroup
+        transitionName="modal"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
         {
           if @state.modalContent?
-            <Modal key={@state.modalIndex}>{@state.modalContent}</Modal>
+            <div key={@state.modalIndex}>{@state.modalContent}</div>
         }
-      </ReactCSSTransitionGroup>
+      </CSSTransitionGroup>
     </div>

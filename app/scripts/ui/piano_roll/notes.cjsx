@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Keyboard = require 'keyboardjs'
 
 
@@ -27,7 +28,7 @@ module.exports = React.createClass
     onDoubleClick: React.PropTypes.func
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   getDefaultProps: ->

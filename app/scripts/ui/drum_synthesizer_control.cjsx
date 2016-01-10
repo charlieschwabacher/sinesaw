@@ -1,6 +1,7 @@
 # UI for drum synthesizer instrument
 
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Updatable = require './mixins/updatable'
 Knob = require './knob'
 Slider = require './slider'
@@ -88,7 +89,7 @@ module.exports = React.createClass
     instrument: React.PropTypes.object.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   getInitialState: ->

@@ -25,7 +25,7 @@ module.exports =
     scrollPadding: 500
 
   componentDidMount: ->
-    el = @refs.container.getDOMNode()
+    el = @refs.container
 
     setTimeout =>
       el.scrollTop = @state.scrollPadding

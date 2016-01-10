@@ -1,4 +1,6 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 
 module.exports = React.createClass
 
@@ -8,11 +10,11 @@ module.exports = React.createClass
     buffer: React.PropTypes.instanceOf(Float32Array).isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   renderCanvas: ->
-    canvas = @getDOMNode()
+    canvas = ReactDOM.findDOMNode this
     buffer = @props.buffer
 
     canvasWidth = canvas.width

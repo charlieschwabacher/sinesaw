@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 
 keyPattern = [true, false, true, false, true, true, false, true, false, true, false, true]
 
@@ -15,7 +16,7 @@ module.exports = React.createClass
     midiNotes: React.PropTypes.object.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   render: ->

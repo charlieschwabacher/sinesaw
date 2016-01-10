@@ -1,6 +1,7 @@
 # UI for drum sampler instrument
 
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Updatable = require './mixins/updatable'
 Sortable = require './mixins/sortable'
 Knob = require './knob'
@@ -21,7 +22,7 @@ Drum = React.createClass
     drum: React.PropTypes.object.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
     Sortable
   ]
 
@@ -81,7 +82,7 @@ module.exports = React.createClass
     instrument: React.PropTypes.object.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   getInitialState: ->

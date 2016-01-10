@@ -1,14 +1,14 @@
 # A react component representing a modal and its backdrop
 
 React = require 'react'
-SizeMeasureable = require '../mixins/size_measurable'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 
 module.exports = React.createClass
 
   displayName: 'Modal'
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   propTypes:

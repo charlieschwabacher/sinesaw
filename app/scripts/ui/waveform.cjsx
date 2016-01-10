@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 SizeMeasurable = require './mixins/size_measurable'
 Draggable = require './mixins/draggable'
 Marker = require './waveform/marker'
@@ -16,7 +17,11 @@ module.exports = React.createClass
     marginTop: React.PropTypes.number
     marginBottom: React.PropTypes.number
 
-  mixins: [React.addons.PureRenderMixin, SizeMeasurable, Draggable]
+  mixins: [
+    PureRenderMixin,
+    SizeMeasurable,
+    Draggable
+  ]
 
   # range in pixels for vertical drag to zoom
   range: 300

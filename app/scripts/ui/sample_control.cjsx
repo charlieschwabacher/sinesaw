@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 Waveform = require './waveform'
 ControlModal = require './modals/control_modal'
 RecordControl = require './record_control'

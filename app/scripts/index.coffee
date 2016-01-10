@@ -1,5 +1,6 @@
 Ultrawave = require 'ultrawave'
-React = require 'react/addons'
+React = require 'react'
+ReactDOM = require 'react-dom'
 SongWorker = require './core/song_worker'
 App = require './ui/app'
 debounce = require './util/debounce'
@@ -53,10 +54,11 @@ launch = ({state, samples}) ->
     .then ->
 
       # render the app on every animation frame
+      container = document.getElementById 'sinesaw'
       frame = ->
-        React.render(
+        ReactDOM.render(
           React.createElement(App, {song, data, playbackState, history}),
-          document.body
+          container
         )
         requestAnimationFrame frame
 

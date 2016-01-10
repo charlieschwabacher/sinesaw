@@ -1,4 +1,5 @@
-React = require 'react/addons'
+React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 
 
 module.exports = React.createClass
@@ -15,7 +16,7 @@ module.exports = React.createClass
     quantization: React.PropTypes.number.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   render: ->

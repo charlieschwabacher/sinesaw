@@ -1,6 +1,6 @@
 # A modal audio recording interface
 
-React = require 'react/addons'
+React = require 'react'
 Waveform = require './waveform'
 Meter = require './meter'
 AudioRecorder = require '../dsp/components/audio_recorder'

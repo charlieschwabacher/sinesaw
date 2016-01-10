@@ -1,5 +1,5 @@
 React = require 'react'
-CSSTransitionGroup = React.addons.CSSTransitionGroup
+CSSTransitionGroup = require 'react-addons-css-transition-group'
 
 
 module.exports = React.createClass
@@ -16,7 +16,11 @@ module.exports = React.createClass
     @props.onSelect e.target.dataset.option
 
   render: ->
-    <CSSTransitionGroup transitionName='fade'>
+    <CSSTransitionGroup
+      transitionName='fade'
+      transitionEnterTimeout={300}
+      transitionLeaveTimeout={300}
+    >
       {
         if @props.open
           <div className='ui menu' key={'m'}>

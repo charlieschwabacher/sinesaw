@@ -2,6 +2,7 @@
 # PlaybackController accepts one property - a song cursor
 
 React = require 'react'
+PureRenderMixin = require 'react-addons-pure-render-mixin'
 Knob = require './knob'
 Oscilloscope = require './oscilloscope'
 SaveModal = require './modals/save_modal'
@@ -17,7 +18,7 @@ module.exports = React.createClass
     song: React.PropTypes.object.isRequired
 
   mixins: [
-    React.addons.PureRenderMixin
+    PureRenderMixin
   ]
 
   launchSaveModal: ->

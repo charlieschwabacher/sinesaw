@@ -5,7 +5,7 @@ module.exports =
     width: 0
 
   updateDimensions: (e) ->
-    el = @refs.container.getDOMNode()
+    el = @refs.container
 
     @setState
       width: el.clientWidth
