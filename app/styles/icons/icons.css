@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'icons';
+  src: url('./icons.woff') format('woff');
+}
+
+.icon {
+  font-family:'icons';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.icon-check:before {
+  content: "\E001";
+}
+
+.icon-cloud:before {
+  content: "\E002";
+}
+
+.icon-down:before {
+  content: "\E003";
+}
+
+.icon-help:before {
+  content: "\E004";
+}
+
+.icon-left:before {
+  content: "\E005";
+}
+
+.icon-minus:before {
+  content: "\E006";
+}
+
+.icon-pause:before {
+  content: "\E007";
+}
+
+.icon-play:before {
+  content: "\E008";
+}
+
+.icon-plus:before {
+  content: "\E009";
+}
+
+.icon-record:before {
+  content: "\E00A";
+}
+
+.icon-right:before {
+  content: "\E00B";
+}
+
+.icon-stop:before {
+  content: "\E00C";
+}
+
+.icon-tape:before {
+  content: "\E00D";
+}
+
+.icon-up:before {
+  content: "\E00E";
+}
+
+.icon-x:before {
+  content: "\E00F";
+}
