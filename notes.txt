@@ -55,8 +55,8 @@ FLOW OF SAMPLE DATA
 - when a new instrument uses a sample, it calls song.useSample incrementing a
   counter
 
-- when an instrument stops using a sample, it calls song.disuseSample,
-  decrementing a counter.  If the counter is zero, we
+- when an instrument stops using a sample, it calls song.releaseSample,
+  decrementing a counter.  If the counter is zero, we free the memory
 
 
 TIME SCALES

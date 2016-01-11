@@ -3,6 +3,7 @@ gutil = require 'gulp-util'
 source = require 'vinyl-source-stream'
 browserify = require 'browserify'
 coffeeReactify = require 'coffee-reactify'
+babelify = require 'babelify'
 envify = require 'envify/custom'
 brfs = require 'brfs'
 connect = require 'gulp-connect'
@@ -40,10 +41,11 @@ gulp.task 'js', ->
 
     browserify(
       debug: true
-      extensions: ['.coffee', '.cjsx']
+      extensions: ['.coffee', '.cjsx', '.js']
       entries: ["./app/scripts/#{bundle}.coffee"]
     )
-      .transform(coffeeReactify)
+      .transform('babelify', presets: ['es2015', 'react', 'stage-0'], extensions: ['.js'])
+      .transform(coffeeReactify, extensions: ['.coffee', '.cjsx'])
       .transform(envify NODE_ENV: 'development')
       .transform(brfs)
       .bundle()

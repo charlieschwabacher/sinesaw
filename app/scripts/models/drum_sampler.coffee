@@ -26,7 +26,7 @@ module.exports = class DrumSampler extends Model
 
   @defaultDrum: (drums) ->
     name: "Drum #{drums.length + 1}"
-    sampleData: null
+    sampleId: null
     sampleName: ''
     transpose: 0
     level: 1
@@ -43,4 +43,4 @@ module.exports = class DrumSampler extends Model
 
   @destroy: (song, drumSampler) ->
     drumSampler.drums.forEach (drum) ->
-      song.disuseSample drum.sampleId
+      song.releaseSample drum.sampleId

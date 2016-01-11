@@ -37,7 +37,7 @@ module.exports = React.createClass
       reader.readAsArrayBuffer file
 
   clear: ->
-    @props.song.disuseSample @props.sampler.get 'sampleId'
+    @props.song.releaseSample @props.sampler.get 'sampleId'
     @props.sampler.merge sampleName: null, sampleId: null
 
   recordSample: ->

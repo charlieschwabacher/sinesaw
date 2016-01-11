@@ -1,8 +1,11 @@
+FilePool = require './FilePool'
 context = require '../dsp/components/global_context'
 MidiInput = require './midi_input'
 cuid = require 'cuid'
 b2a = require 'base64-arraybuffer'
 
+
+window.FilePool = FilePool
 
 module.exports = class SongWorker
 
@@ -93,7 +96,7 @@ module.exports = class SongWorker
     @samples[id].count += 1
     id
 
-  disuseSample: (id) ->
+  releaseSample: (id) ->
     return unless id?
     throw new Error "sample #{id} not found" unless @samples[id]?
     count = @samples[id].count -= 1

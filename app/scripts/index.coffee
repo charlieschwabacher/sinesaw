@@ -19,7 +19,7 @@ if process.env.NODE_ENV is 'development'
 # setup immutable data, dsp thread, and start app
 launch = ({state, samples}) ->
 
-  song = new SongWorker
+  window.song = new SongWorker
   song.loadSamples samples if samples?
 
   data = null

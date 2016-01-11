@@ -33,4 +33,4 @@ module.exports = class BasicSampler extends Model
       env: 0.45
 
   @destroy: (song, basicSampler) ->
-    song.disuseSample basicSampler.sampleId
+    song.releaseSample basicSampler.sampleId

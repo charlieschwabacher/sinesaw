@@ -100,7 +100,7 @@ module.exports = React.createClass
     drums = @props.instrument.get('drums').slice 0
     drum = drums[@state.activeDrum]
     drums.splice @state.activeDrum, 1
-    @props.song.disuseSample drum.sampleId
+    @props.song.releaseSample drum.sampleId
     @props.instrument.set 'drums', drums
     @setState activeDrum: Math.min @state.activeDrum, drums.length - 1
 

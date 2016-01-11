@@ -19,7 +19,7 @@ body
   bottom 0
   left 0
   right 0
-  overflow hidden
+  overflow scroll
   -webkit-user-select none
   cursor default
 
@@ -27,8 +27,10 @@ body
   position absolute
   top 0
   left 0
-  right 0
-  bottom 0
+  width 100%
+  height 100%
+  min-height 405px
+  min-width 720px
 
 label
   color text-color
@@ -93,7 +95,6 @@ a
   flex-flow column nowrap
   width 100%
   height 100%
-  min-width 720px
 
 .row,
 .column
@@ -112,6 +113,20 @@ a
   flex-shrink 0
   flex-grow 0
 
+.column.sidebar
+  position absolute
+  top 0
+  bottom 0
+  left 0
+  width 180px
+
+.column.main
+  position absolute
+  top 0
+  bottom 0
+  right 0
+  left 180px
+
 .row.instrument
   flex-basis 263px
   flex-shrink 0
@@ -124,19 +139,13 @@ a
   flex-shrink 1
   position relative
 
-.column.sidebar
-  position absolute
-  top 0
-  bottom 0
-  left 0
-  width 160px
 
 .column.sequence
   position absolute
   top 0
   bottom 0
   right 0
-  left 160px
+  left 180px
 
 .pull-left
   float left

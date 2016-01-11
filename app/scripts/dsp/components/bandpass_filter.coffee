@@ -1,2 +1,4 @@
 module.exports = ->
-  (sample, cutoff, res) -> sample
+  (sample, cutoff, res) ->
+    # needs to be implemented
+    sample

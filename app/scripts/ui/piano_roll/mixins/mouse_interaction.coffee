@@ -19,7 +19,7 @@ module.exports =
   # {key, start} with values in notes and beats based on the current zoom and
   # scroll positions of the piano roll
   getRelativePosition: ({x,y}) ->
-    {top, left} = @refs.grid.getDOMNode().getBoundingClientRect()
+    {top, left} = @refs.grid.getBoundingClientRect()
     height = @state.height
     width = @state.width - @state.keyWidth
 

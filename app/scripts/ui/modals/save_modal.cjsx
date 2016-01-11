@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 DialogModal = require './dialog_modal'
 
 module.exports = React.createClass
