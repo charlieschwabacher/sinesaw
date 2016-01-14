@@ -1,11 +1,8 @@
-FilePool = require './FilePool'
 context = require '../dsp/components/global_context'
 MidiInput = require './midi_input'
 cuid = require 'cuid'
 b2a = require 'base64-arraybuffer'
 
-
-window.FilePool = FilePool
 
 module.exports = class SongWorker
 
@@ -23,7 +20,6 @@ module.exports = class SongWorker
 
     @cursor = null
     @state = {}
-    @samples = {}
     @frameHandlers = []
 
     @sampleRate = context.sampleRate
@@ -71,7 +67,7 @@ module.exports = class SongWorker
       index: @i
       sampleRate: @sampleRate
 
-  update: (cursor) ->
+  update: (cursor, changes) ->
     @cursor = cursor
     @state = cursor.get()
     @worker.postMessage {type: 'update', @state}
@@ -83,27 +79,36 @@ module.exports = class SongWorker
     i = @frameHandlers.indexOf fn
     @frameHandlers.splice i, 1 if i > -1
 
-  addSample: (sampleData) ->
+  # send existing samples to worker thread
+  loadSamples: ->
+    @worker.postMessage {type: 'clearSamples'}
+    for id, {fileName, count, sampleData} of @state.samples
+      @worker.postMessage {type: 'addSample', id, sampleData}
+
+  # store a sample in the cursor, and send to worker thread, return its id
+  addSample: (fileName, sampleData) ->
     id = cuid()
-    @samples[id] = {sampleData, count: 1}
-
     @worker.postMessage {type: 'addSample', id, sampleData}
-
+    @cursor.set ['samples', id], {fileName, count: 1, sampleData: b2a.encode sampleData.buffer}
     id
 
+  getSample: (id) ->
+    @state.samples[id]
+
   useSample: (id) ->
-    throw new Error "sample #{id} not found" unless @samples[id]?
-    @samples[id].count += 1
+    throw new Error "sample #{id} not found" unless @state.samples[id]?
+    @cursor.set ['samples', id, 'count'], @state.samples[id].count + 1
     id
 
   releaseSample: (id) ->
-    return unless id?
-    throw new Error "sample #{id} not found" unless @samples[id]?
-    count = @samples[id].count -= 1
+    throw new Error "sample #{id} not found" unless @state.samples[id]?
+    count = @state.samples[id].count - 1
 
-    if @samples[id].count is 0
-      delete @samples[id]
+    if count is 0
       @worker.postMessage {type: 'removeSample', id}
+      @cursor.delete ['samples', id]
+    else
+      @cursor.set ['samples', id, 'count'], count
 
     count
 
@@ -117,41 +122,13 @@ module.exports = class SongWorker
 
   # import song from a json string
   fromJSON: (string) ->
-    {state, samples} = JSON.parse string
-
-    @cursor.set [], state
+    @cursor.set [], JSON.parse string
     @worker.postMessage {type: 'update', @state}
-
-    @loadSamples samples
-
-  loadSamples: (samples) ->
-    @samples = Object.keys(samples).reduce((memo, id) =>
-      {count, sampleData} = samples[id]
-      memo[id] =
-        count: count
-        sampleData: new Float32Array b2a.decode sampleData
-      memo
-    , {})
-
-    @worker.postMessage {type: 'clearSamples'}
-    for id, {sampleData} of @samples
-      @worker.postMessage {type: 'addSample', id, sampleData}
+    @loadSamples()
 
   # export song to .sinesaw file
   toFile: ->
-    new Blob [@toJSON()], type: 'application/sinesaw'
-
-  # export song to json string
-  toJSON: ->
-    JSON.stringify
-      state: @state
-      samples: Object.keys(@samples).reduce((memo, id) =>
-        {count, sampleData} = @samples[id]
-        memo[id] =
-          count: count
-          sampleData: b2a.encode sampleData.buffer
-        memo
-      , {})
+    new Blob [JSON.stringify @state], type: 'application/sinesaw'
 
   # begin playback
   play: =>

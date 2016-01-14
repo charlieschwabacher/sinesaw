@@ -17,18 +17,18 @@ if process.env.NODE_ENV is 'development'
 
 
 # setup immutable data, dsp thread, and start app
-launch = ({state, samples}) ->
+launch = (state) ->
 
   window.song = new SongWorker
   song.loadSamples samples if samples?
 
-  data = null
+  window.data = null
   changes = null
   playbackState = null
 
   # define a debounced function to save current song to localstorage
   saveToLocalStorage = debounce 2000, ->
-    localStorage.setItem 'song', song.toJSON()
+    localStorage.setItem 'song', JSON.stringify data.get()
 
   # called when playback state is received from audio processing thread
   song.onFrame (state) -> playbackState = state
@@ -41,17 +41,21 @@ launch = ({state, samples}) ->
 
     .joinOrCreate group, state, (d, c) ->
 
+      console.log('joined or created')
+
       # pass updated data to dsp thread
-      song.update d
+      song.update d, c
 
       # keep references to data cursor and changes objects
-      data = d
+      window.data = d
       changes = c
 
       # save changes in localstorage
       saveToLocalStorage()
 
     .then ->
+
+      console.log 'starting rendering'
 
       # render the app on every animation frame
       container = document.getElementById 'sinesaw'

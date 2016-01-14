@@ -11,7 +11,6 @@ module.exports = React.createClass
   propTypes:
     app: React.PropTypes.object.isRequired
     sampler: React.PropTypes.object.isRequired
-    sampleName: React.PropTypes.string
     label: React.PropTypes.string
 
   # range in pixels for vertical drag to zoom
@@ -32,8 +31,8 @@ module.exports = React.createClass
       reader.onload = (e) =>
         decoder.decodeAudioData e.target.result, (buffer) =>
           sampleData = buffer.getChannelData 0
-          sampleId = @props.song.addSample sampleData
-          @props.sampler.merge {sampleName: file.name, sampleId}
+          sampleId = @props.song.addSample file.name, sampleData
+          @props.sampler.merge {sampleId}
       reader.readAsArrayBuffer file
 
   clear: ->
@@ -46,8 +45,8 @@ module.exports = React.createClass
         dismiss={@props.app.dismissModal}
         onConfirm={
           (sampleData) =>
-            sampleId = @props.song.addSample sampleData
-            @props.sampler.merge {sampleName: 'recording.wav', sampleId}
+            sampleId = @props.song.addSample 'recording.wav', sampleData
+            @props.sampler.merge {sampleId}
             @props.app.dismissModal()
         }
       />
@@ -64,18 +63,19 @@ module.exports = React.createClass
       start: Math.min value, @props.sampler.get 'start'
 
   render: ->
-    sampler = @props.sampler
-    sampleStart = sampler.get 'start'
-    loopActive = sampler.get 'loopActive'
-    loopValue = sampler.get 'loop'
-    sampleId = sampler.get 'sampleId'
-    sampleData = @props.song.samples[sampleId].sampleData if sampleId?
+    sampler = @props.sampler.get()
+
+    {start, loopActive, sampleId} = sampler
+    loopValue = sampler.loop
+
+    sample = @props.song.getSample sampleId if sampleId?
+    {fileName, sampleData} = sample if sample?
 
     markers = {}
 
-    if sampleStart?
+    if start?
       markers.start =
-        value: sampleStart
+        value: start
         onChange: @setStart
 
     if loopActive == 'loop'
@@ -98,7 +98,7 @@ module.exports = React.createClass
         {if sampleData? then null else <div className="instruction">click to upload</div>}
         <Waveform
           sampleData={sampleData}
-          selectionStart={sampleStart or 0}
+          selectionStart={start or 0}
           selectionEnd={if loopActive == 'loop' then loopValue else 1}
           markers={markers}
         />
@@ -113,7 +113,7 @@ module.exports = React.createClass
         <div className="control" onClick={@clear}>
           <div className="icon icon-x"/>
         </div>
-        <div className="file-name">{@props.sampleName}</div>
+        <div className="file-name">{fileName}</div>
       </div>
       <label>{@props.label}</label>
     </div>

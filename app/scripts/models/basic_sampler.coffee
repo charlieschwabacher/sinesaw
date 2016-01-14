@@ -11,7 +11,6 @@ module.exports = class BasicSampler extends Model
     maxPolyphony: 6
     rootKey: 60
     sampleId: null
-    sampleName: ''
     start: 0
     loopActive: 'off'
     loop: 1

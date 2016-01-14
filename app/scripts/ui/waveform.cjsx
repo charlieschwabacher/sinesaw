@@ -5,13 +5,17 @@ SizeMeasurable = require './mixins/size_measurable'
 Draggable = require './mixins/draggable'
 Marker = require './waveform/marker'
 Visualization = require './waveform/visualization'
+b2a = require 'base64-arraybuffer'
 
 module.exports = React.createClass
 
   displayName: 'Waveform'
 
   propTypes:
-    sampleData: React.PropTypes.object
+    sampleData: React.PropTypes.oneOfType [
+      React.PropTypes.string,
+      React.PropTypes.instanceOf(Float32Array)
+    ]
     markers: React.PropTypes.object
     selectionStart: React.PropTypes.number
     selectionEnd: React.PropTypes.number
@@ -95,8 +99,11 @@ module.exports = React.createClass
     if @props.sampleData? and @state.width > 0
 
       # render waveform
+      sampleData = if typeof @props.sampleData is 'string'
+        new Float32Array b2a.decode @props.sampleData
+      else
+        @props.sampleData
 
-      sampleData = @props.sampleData
 
       # window size in slices
       resolution = @state.width / 2
